@@ -578,7 +578,10 @@ class DD001View(BinaryView):
     def register(self):
         log_info("Registered DD001View")
         super().register() # Python 3 syntax
-    
+
+    def perform_get_address_size(self) -> int:
+        return 2
+
     def __init__(self, data):
         BinaryView.__init__(self, parent_view = data, file_metadata = data.file)
         self.platform = Architecture['6502'].standalone_platform
