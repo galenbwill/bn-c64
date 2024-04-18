@@ -11,6 +11,7 @@ from binaryninja.enums import SegmentFlag, SymbolType
 from binaryninja.enums import SectionSemantics
 from binaryninja import Settings
 from binaryninja import PluginCommand
+from binaryninja.types import Type
 
 from inspect import currentframe, getframeinfo # for getting line nr
 
@@ -681,9 +682,9 @@ class DD001View(BinaryView):
             self.define_auto_symbol(Symbol(
                 SymbolType.DataSymbol,
                 0x8002, "warm_reset_vector"))
-            type = self.parse_type_string("void *vector");
-            self.define_data_var(0x8000, type[0])
-            self.define_data_var(0x8002, type[0])
+            type = Type.pointer(self.arch, self.parse_type_string('void')[0])
+            self.define_data_var(0x8000, type)
+            self.define_data_var(0x8002, type)
 
             self.define_auto_symbol(Symbol(SymbolType.FunctionSymbol, self.coldreset, "_coldreset"))                        
             self.create_user_function(self.coldreset);
