@@ -1,0 +1,21 @@
+<-- https://www.c64-wiki.com/index.php?title=Page_1&action=edit&section=1 -->
+== Addresses ==
+
+=== RAM ===
+{| {{Wikitable}}
+!Hex Address
+!Dec Address
+!Type
+!Contents
+|-
+| $0100-$010A || 256-266 || || Work Area for Floating Point to String Conversions
+|-
+| $0100-$013E || 256-318 || || [[Datasette]] input error log
+|-
+| $013F-$01FF || 319-511 || || Microprocessor hardware stack
+|-
+|}
+
+[[category:Basics]]
+[[category:Memory Map]]
+[[DE:Zeropage#Belegung_der_erweiterten_Zeropage_.28256.2F.24100_-_1023.2F.243FF.29_des_C64]]

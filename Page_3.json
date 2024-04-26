@@ -1,0 +1,387 @@
+{
+    "768": {
+        "Hex Address": "$0300",
+        "Dec Address": "768",
+        "Type": "Pointer",
+        "Contents": "Low Byte address of the Print BASIC Error Message Routine",
+        "length": 1
+    },
+    "769": {
+        "Hex Address": "$0301",
+        "Dec Address": "769",
+        "Type": "Pointer",
+        "Contents": "High byte address of the Print BASIC Error Message Routine",
+        "length": 1
+    },
+    "770": {
+        "Hex Address": "$0302",
+        "Dec Address": "770",
+        "Type": "Pointer",
+        "Contents": "Low Byte address of the Main BASIC Program Loop",
+        "length": 1
+    },
+    "771": {
+        "Hex Address": "$0303",
+        "Dec Address": "771",
+        "Type": "Pointer",
+        "Contents": "High byte address of the Main BASIC Program Loop",
+        "length": 1
+    },
+    "772": {
+        "Hex Address": "$0304",
+        "Dec Address": "772",
+        "Type": "Pointer",
+        "Contents": "Low Byte address of the routine That Crunches the ASCII Text of Keywords into Tokens",
+        "length": 1
+    },
+    "773": {
+        "Hex Address": "$0305",
+        "Dec Address": "773",
+        "Type": "Pointer",
+        "Contents": "High byte address of the routine That Crunches the ASCII Text of Keywords into Tokens",
+        "length": 1
+    },
+    "774": {
+        "Hex Address": "$0306",
+        "Dec Address": "774",
+        "Type": "Pointer",
+        "Contents": "Low Byte address of the routine That Lists BASIC Program Token as ASCII Text",
+        "length": 1
+    },
+    "775": {
+        "Hex Address": "$0307",
+        "Dec Address": "775",
+        "Type": "Pointer",
+        "Contents": "High byte address of the routine That Lists BASIC Program Token as ASCII Text",
+        "length": 1
+    },
+    "776": {
+        "Hex Address": "$0308",
+        "Dec Address": "776",
+        "Type": "Pointer",
+        "Contents": "Low Byte address of the routine That Executes the Next BASIC Program Token",
+        "length": 1
+    },
+    "777": {
+        "Hex Address": "$0309",
+        "Dec Address": "777",
+        "Type": "Pointer",
+        "Contents": "High byte address of the routine That Executes the Next BASIC Program Token",
+        "length": 1
+    },
+    "778": {
+        "Hex Address": "$030A",
+        "Dec Address": "778",
+        "Type": "Pointer",
+        "Contents": "Low Byte address of the routine That Evaluates a Single-Term Arithmetic Expression",
+        "length": 1
+    },
+    "779": {
+        "Hex Address": "$030B",
+        "Dec Address": "779",
+        "Type": "Pointer",
+        "Contents": "High byte address of the routine That Evaluates a Single-Term Arithmetic Expression",
+        "length": 1
+    },
+    "780": {
+        "Hex Address": "$030C",
+        "Dec Address": "780",
+        "Type": "Value",
+        "Contents": "Storage Area for .A Register (Accumulator)",
+        "length": 1
+    },
+    "781": {
+        "Hex Address": "$030D",
+        "Dec Address": "781",
+        "Type": "Value",
+        "Contents": "Storage Area for .X Index Register",
+        "length": 1
+    },
+    "782": {
+        "Hex Address": "$030E",
+        "Dec Address": "782",
+        "Type": "Value",
+        "Contents": "Storage Area for .Y Index Register",
+        "length": 1
+    },
+    "783": {
+        "Hex Address": "$030F",
+        "Dec Address": "783",
+        "Type": "Value",
+        "Contents": "Storage Area for .P (Status) Register\nBit 0 - Carry\nBit 1 - Zero\nBit 2 - Interrupt Disable\nBit 3 - Decimal\nBit 4 - Break\nBit 5 - Unused\nBit 6 - Overflow\nBit 7 - Negative",
+        "length": 1
+    },
+    "784": {
+        "Hex Address": "$0310",
+        "Dec Address": "784",
+        "Type": "Value",
+        "Contents": "Machine code, 76 ($4C), for assembler command JMP",
+        "length": 1
+    },
+    "785": {
+        "Hex Address": "$0311",
+        "Dec Address": "785",
+        "Type": "Pointer",
+        "Contents": "Low Byte address of USR routine",
+        "length": 1
+    },
+    "786": {
+        "Hex Address": "$0312",
+        "Dec Address": "786",
+        "Type": "Pointer",
+        "Contents": "High byte address of USR Routine",
+        "length": 1
+    },
+    "787": {
+        "Hex Address": "$0313",
+        "Dec Address": "787",
+        "Type": "",
+        "Contents": "Unused",
+        "length": 1
+    },
+    "788": {
+        "Hex Address": "$0314",
+        "Dec Address": "788",
+        "Type": "Pointer",
+        "Contents": "Low Byte address of the interrupt service routine",
+        "length": 1
+    },
+    "789": {
+        "Hex Address": "$0315",
+        "Dec Address": "789",
+        "Type": "Pointer",
+        "Contents": "High byte address of the interrupt service routine",
+        "length": 1
+    },
+    "790": {
+        "Hex Address": "$0316",
+        "Dec Address": "790",
+        "Type": "Pointer",
+        "Contents": "Low Byte address of the BRK instruction interrupt",
+        "length": 1
+    },
+    "791": {
+        "Hex Address": "$0317",
+        "Dec Address": "791",
+        "Type": "Pointer",
+        "Contents": "High byte address of the BRK instruction interrupt",
+        "length": 1
+    },
+    "792": {
+        "Hex Address": "$0318",
+        "Dec Address": "792",
+        "Type": "Pointer",
+        "Contents": "Low Byte address of the routine that follows a non-maskable interrupt",
+        "length": 1
+    },
+    "793": {
+        "Hex Address": "$0319",
+        "Dec Address": "793",
+        "Type": "Pointer",
+        "Contents": "High byte address of the routine that follows a non-maskable interrupt",
+        "length": 1
+    },
+    "794": {
+        "Hex Address": "$031A",
+        "Dec Address": "794",
+        "Type": "Pointer",
+        "Contents": "Low Byte address of the KERNAL OPEN routine",
+        "length": 1
+    },
+    "795": {
+        "Hex Address": "$031B",
+        "Dec Address": "795",
+        "Type": "Pointer",
+        "Contents": "High byte address of the KERNAL OPEN routine",
+        "length": 1
+    },
+    "796": {
+        "Hex Address": "$031C",
+        "Dec Address": "796",
+        "Type": "Pointer",
+        "Contents": "Low Byte address of the KERNAL CLOSE routine",
+        "length": 1
+    },
+    "797": {
+        "Hex Address": "$031D",
+        "Dec Address": "797",
+        "Type": "Pointer",
+        "Contents": "High byte address of the KERNAL CLOSE routine",
+        "length": 1
+    },
+    "798": {
+        "Hex Address": "$031E",
+        "Dec Address": "798",
+        "Type": "Pointer",
+        "Contents": "Low Byte address of the KERNAL CHKIN routine",
+        "length": 1
+    },
+    "799": {
+        "Hex Address": "$031F",
+        "Dec Address": "799",
+        "Type": "Pointer",
+        "Contents": "High byte address of the KERNAL CHKIN routine",
+        "length": 1
+    },
+    "800": {
+        "Hex Address": "$0320",
+        "Dec Address": "800",
+        "Type": "Pointer",
+        "Contents": "Low Byte address of the KERNAL CKOUT routine",
+        "length": 1
+    },
+    "801": {
+        "Hex Address": "$0321",
+        "Dec Address": "801",
+        "Type": "Pointer",
+        "Contents": "High byte address of the KERNAL CKOUT routine",
+        "length": 1
+    },
+    "802": {
+        "Hex Address": "$0322",
+        "Dec Address": "802",
+        "Type": "Pointer",
+        "Contents": "Low Byte address of the KERNAL CLRCHN routine",
+        "length": 1
+    },
+    "803": {
+        "Hex Address": "$0323",
+        "Dec Address": "803",
+        "Type": "Pointer",
+        "Contents": "High byte address of the KERNAL CLRCHN routine",
+        "length": 1
+    },
+    "804": {
+        "Hex Address": "$0324",
+        "Dec Address": "804",
+        "Type": "Pointer",
+        "Contents": "Low Byte address of the KERNAL CHRIN routine",
+        "length": 1
+    },
+    "805": {
+        "Hex Address": "$0325",
+        "Dec Address": "805",
+        "Type": "Pointer",
+        "Contents": "High byte address of the KERNAL CHRIN routine",
+        "length": 1
+    },
+    "806": {
+        "Hex Address": "$0326",
+        "Dec Address": "806",
+        "Type": "Pointer",
+        "Contents": "Low Byte address of the KERNAL CHROUT routine",
+        "length": 1
+    },
+    "807": {
+        "Hex Address": "$0327",
+        "Dec Address": "807",
+        "Type": "Pointer",
+        "Contents": "High byte address of the KERNAL CHROUT routine",
+        "length": 1
+    },
+    "808": {
+        "Hex Address": "$0328",
+        "Dec Address": "808",
+        "Type": "Pointer",
+        "Contents": "Low Byte address of the KERNAL STOP routine",
+        "length": 1
+    },
+    "809": {
+        "Hex Address": "$0329",
+        "Dec Address": "809",
+        "Type": "Pointer",
+        "Contents": "High byte address of the KERNAL STOP routine",
+        "length": 1
+    },
+    "810": {
+        "Hex Address": "$032A",
+        "Dec Address": "810",
+        "Type": "Pointer",
+        "Contents": "Low Byte address of the KERNAL GETIN routine",
+        "length": 1
+    },
+    "811": {
+        "Hex Address": "$032B",
+        "Dec Address": "811",
+        "Type": "Pointer",
+        "Contents": "High byte address of the KERNAL GETIN routine",
+        "length": 1
+    },
+    "812": {
+        "Hex Address": "$032C",
+        "Dec Address": "812",
+        "Type": "Pointer",
+        "Contents": "Low Byte address of the KERNAL CLALL routine",
+        "length": 1
+    },
+    "813": {
+        "Hex Address": "$032D",
+        "Dec Address": "813",
+        "Type": "Pointer",
+        "Contents": "High byte address of the KERNAL CLALL routine",
+        "length": 1
+    },
+    "814": {
+        "Hex Address": "$032E",
+        "Dec Address": "814",
+        "Type": "Pointer",
+        "Contents": "Low Byte address of the user-defined routine",
+        "length": 1
+    },
+    "815": {
+        "Hex Address": "$032F",
+        "Dec Address": "815",
+        "Type": "Pointer",
+        "Contents": "High byte address of the user-defined routine",
+        "length": 1
+    },
+    "816": {
+        "Hex Address": "$0330",
+        "Dec Address": "816",
+        "Type": "Pointer",
+        "Contents": "Low Byte address of the LOAD routine",
+        "length": 1
+    },
+    "817": {
+        "Hex Address": "$0331",
+        "Dec Address": "817",
+        "Type": "Pointer",
+        "Contents": "High byte address of the LOAD routine",
+        "length": 1
+    },
+    "818": {
+        "Hex Address": "$0332",
+        "Dec Address": "818",
+        "Type": "Pointer",
+        "Contents": "Low Byte address of the SAVE routine",
+        "length": 1
+    },
+    "819": {
+        "Hex Address": "$0333",
+        "Dec Address": "819",
+        "Type": "Pointer",
+        "Contents": "High byte address of the SAVE routine",
+        "length": 1
+    },
+    "820": {
+        "Hex Address": "$0334-$033B",
+        "Dec Address": "820-827",
+        "Type": "",
+        "Contents": "Unused",
+        "length": 8
+    },
+    "828": {
+        "Hex Address": "$033C-$03FB",
+        "Dec Address": "828-1019",
+        "Type": "",
+        "Contents": "Datasette I/O buffer",
+        "length": 192
+    },
+    "1020": {
+        "Hex Address": "$03FC-$03FF",
+        "Dec Address": "1020-1023",
+        "Type": "",
+        "Contents": "Unused",
+        "length": 4
+    }
+}

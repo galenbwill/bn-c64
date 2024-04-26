@@ -1,0 +1,170 @@
+{
+    "512": {
+        "Hex Address": "$0200-$0258",
+        "Dec Address": "512-600",
+        "Type": "",
+        "Contents": "BASIC Input cache",
+        "length": 89
+    },
+    "601": {
+        "Hex Address": "$0259-$0276",
+        "Dec Address": "601-630",
+        "Type": "",
+        "Contents": "",
+        "length": 30
+    },
+    "631": {
+        "Hex Address": "$0277-$0280",
+        "Dec Address": "631-640",
+        "Type": "",
+        "Contents": "Keyboard cache. See also 198",
+        "length": 10
+    },
+    "641": {
+        "Hex Address": "$0281-$0285",
+        "Dec Address": "641-645",
+        "Type": "",
+        "Contents": "",
+        "length": 5
+    },
+    "646": {
+        "Hex Address": "$0286",
+        "Dec Address": "646",
+        "Type": "Value",
+        "Contents": "Text colour (values 0-15)",
+        "length": 1
+    },
+    "647": {
+        "Hex Address": "$0287",
+        "Dec Address": "647",
+        "Type": "",
+        "Contents": "Colour under position of cursor",
+        "length": 1
+    },
+    "648": {
+        "Hex Address": "$0288",
+        "Dec Address": "648",
+        "Type": "",
+        "Contents": "Top of screen page memory",
+        "length": 1
+    },
+    "649": {
+        "Hex Address": "$0289",
+        "Dec Address": "649",
+        "Type": "Value",
+        "Contents": "Length of keyboard cache",
+        "length": 1
+    },
+    "650": {
+        "Hex Address": "$028A",
+        "Dec Address": "650",
+        "Type": "",
+        "Contents": "Key-repeat for {{Key|CRSR}},{{Key|INST/DEL}} and {{Key|SPACE}}: default ({{Key|CRSR}} only)= 0; no keys pressed = 6, all three keys pressed = 128",
+        "length": 1
+    },
+    "651": {
+        "Hex Address": "$028B",
+        "Dec Address": "651",
+        "Type": "",
+        "Contents": "Speed of key-repeat",
+        "length": 1
+    },
+    "652": {
+        "Hex Address": "$028C",
+        "Dec Address": "652",
+        "Type": "",
+        "Contents": "Delay time of first key-repeat",
+        "length": 1
+    },
+    "653": {
+        "Hex Address": "$028D",
+        "Dec Address": "653",
+        "Type": "",
+        "Contents": "Keycodes of {{Key|CTRL}} (added together) with:\nBit 0 - {{Key|SHIFT}}\nBit 1 - {{Key|COMMODORE}}\nBit 2 - {{Key|CTRL}}",
+        "length": 1
+    },
+    "654": {
+        "Hex Address": "$028E",
+        "Dec Address": "654",
+        "Type": "",
+        "Contents": "Last pattern of {{Key|SHIFT}}/{{Key|CTRL}}/{{Key|COMMODORE}} Keypress",
+        "length": 1
+    },
+    "655": {
+        "Hex Address": "$028F",
+        "Dec Address": "655",
+        "Type": "Pointer",
+        "Contents": "Low Byte keyboard decoding",
+        "length": 1
+    },
+    "656": {
+        "Hex Address": "$0290",
+        "Dec Address": "656",
+        "Type": "Pointer",
+        "Contents": "High byte keyboard decoding",
+        "length": 1
+    },
+    "657": {
+        "Hex Address": "$0291",
+        "Dec Address": "657",
+        "Type": "",
+        "Contents": "Character set case change with {{Key|SHIFT}}+{{Key|COMMODORE}}: enabled = 0 ($00), disabled = 128 ($80)",
+        "length": 1
+    },
+    "658": {
+        "Hex Address": "$0292",
+        "Dec Address": "658",
+        "Type": "",
+        "Contents": "Screen scrolling: enabled = 0, disabled <> 0",
+        "length": 1
+    },
+    "659": {
+        "Hex Address": "$0293-$02A1",
+        "Dec Address": "659-673",
+        "Type": "",
+        "Contents": "RS-232 Pseudo 6551 Registers",
+        "length": 15
+    },
+    "674": {
+        "Hex Address": "$02A2",
+        "Dec Address": "674",
+        "Type": "",
+        "Contents": "Indicator of CIA #1 Control Register B Activity During Cassette I/O",
+        "length": 1
+    },
+    "675": {
+        "Hex Address": "$02A3",
+        "Dec Address": "675",
+        "Type": "",
+        "Contents": "Save Area for CIA #1 Interrupt Control Register During Cassette Read",
+        "length": 1
+    },
+    "676": {
+        "Hex Address": "$02A4",
+        "Dec Address": "676",
+        "Type": "",
+        "Contents": "Save Area for CIA #1 Control Register A During Cassette Read",
+        "length": 1
+    },
+    "677": {
+        "Hex Address": "$02A5",
+        "Dec Address": "677",
+        "Type": "",
+        "Contents": "Temporary Index to the Next 40-Column Line for Screen Scrolling",
+        "length": 1
+    },
+    "678": {
+        "Hex Address": "$02A6",
+        "Dec Address": "678",
+        "Type": "Flag",
+        "Contents": "For PAL/NTSC startup test",
+        "length": 1
+    },
+    "679": {
+        "Hex Address": "$02A7-$02FF",
+        "Dec Address": "679-767",
+        "Type": "",
+        "Contents": "Unused",
+        "length": 89
+    }
+}

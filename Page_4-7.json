@@ -1,0 +1,72 @@
+{
+    "1024": {
+        "Hex Address": "$0400-$07E7",
+        "Dec Address": "1024-2023",
+        "Type": "Value",
+        "Contents": "1000 (25 rows, 40 columns) video matrix locations addressed horizontally, then vertically.",
+        "length": 1000
+    },
+    "2024": {
+        "Hex Address": "$07E8-$07F7",
+        "Dec Address": "2024-2039",
+        "Type": "",
+        "Contents": "Unused",
+        "length": 16
+    },
+    "2040": {
+        "Hex Address": "$07F8",
+        "Dec Address": "2040",
+        "Type": "Value",
+        "Contents": "Multiplicand for location of sprite 0 data block in memory map: Value x 64 = data start address",
+        "length": 1
+    },
+    "2041": {
+        "Hex Address": "$07F9",
+        "Dec Address": "2041",
+        "Type": "Value",
+        "Contents": "Multiplicand for location of sprite 1 data block in memory map: Value x 64 = data start address",
+        "length": 1
+    },
+    "2042": {
+        "Hex Address": "$07FA",
+        "Dec Address": "2042",
+        "Type": "Value",
+        "Contents": "Multiplicand for location of sprite 2 data block in memory map: Value x 64 = data start address",
+        "length": 1
+    },
+    "2043": {
+        "Hex Address": "$07FB",
+        "Dec Address": "2043",
+        "Type": "Value",
+        "Contents": "Multiplicand for location of sprite 3 data block in memory map: Value x 64 = data start address",
+        "length": 1
+    },
+    "2044": {
+        "Hex Address": "$07FC",
+        "Dec Address": "2044",
+        "Type": "Value",
+        "Contents": "Multiplicand for location of sprite 4 data block in memory map: Value x 64 = data start address",
+        "length": 1
+    },
+    "2045": {
+        "Hex Address": "$07FD",
+        "Dec Address": "2045",
+        "Type": "Value",
+        "Contents": "Multiplicand for location of sprite 5 data block in memory map: Value x 64 = data start address",
+        "length": 1
+    },
+    "2046": {
+        "Hex Address": "$07FE",
+        "Dec Address": "2046",
+        "Type": "Value",
+        "Contents": "Multiplicand for location of sprite 6 data block in memory map: Value x 64 = data start address",
+        "length": 1
+    },
+    "2047": {
+        "Hex Address": "$07FF",
+        "Dec Address": "2047",
+        "Type": "Value",
+        "Contents": "Multiplicand for location of sprite 7 data block in memory map: Value x 64 = data start address",
+        "length": 1
+    }
+}

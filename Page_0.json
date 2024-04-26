@@ -1,0 +1,1206 @@
+{
+    "0": {
+        "Hex Address": "$0000",
+        "Dec Address": "0",
+        "Type": "Register",
+        "Purpose": "6510 CPU's data direction I/O port register; 0 = input, 1 = output\nBit 0 - Direction of I/O on port at bit 0 of address $0001; default = 1\nBit 1 - Direction of I/O on port at bit 1 of address $0001; default = 1\nBit 2 - Direction of I/O on port at bit 2 of address $0001; default = 1\nBit 3 - Direction of I/O on port at bit 3 of address $0001; default = 1\nBit 4 - Direction of I/O on port at bit 4 of address $0001; default = 0\nBit 5 - Direction of I/O on port at bit 5 of address $0001; default = 1\nBit 6 - Direction of I/O on port at bit 6 of address $0001; unused, as bit 6 of address $0001 is undefined\nBit 7 - Direction of I/O on port at bit 7 of address $0001; unused, as bit 7 of address $0001 is undefined",
+        "length": 1
+    },
+    "1": {
+        "Hex Address": "$0001",
+        "Dec Address": "1",
+        "Type": "Register",
+        "Purpose": "6510 CPU's on-chip port register\nBit 0 - LORAM: Configures RAM or ROM at $A000-$BFFF (see bankswitching)\nBit 1 - HIRAM: Configures RAM or ROM at $E000-$FFFF (see bankswitching)\nBit 2 - CHAREN: Configures I/O or ROM at $D000-$DFFF (see bankswitching)\nBit 3 - Cassette Data Output Line (Datasette)\nBit 4 - Cassette Switch Sense; 1 = Switch Closed\nBit 5 - Cassette Motor Control; 0 = On, 1 = Off\nBit 6 - Undefined\nBit 7 - Undefined",
+        "length": 1
+    },
+    "2": {
+        "Hex Address": "$0002",
+        "Dec Address": "2",
+        "Type": "",
+        "Purpose": "Unused",
+        "length": 1
+    },
+    "3": {
+        "Hex Address": "$0003",
+        "Dec Address": "3",
+        "Type": "Pointer",
+        "Purpose": "Low Byte pointing to address 45482/$B1AA; a ROM routine for converting floating point numbers to integers",
+        "length": 1
+    },
+    "4": {
+        "Hex Address": "$0004",
+        "Dec Address": "4",
+        "Type": "Pointer",
+        "Purpose": "High byte pointing to address 45482/$B1AA; a ROM routine for converting floating point numbers to integers",
+        "length": 1
+    },
+    "5": {
+        "Hex Address": "$0005",
+        "Dec Address": "5",
+        "Type": "Pointer",
+        "Purpose": "Low Byte pointing to 45969/$B391; a ROM routine for converting integer numbers to floating point format",
+        "length": 1
+    },
+    "6": {
+        "Hex Address": "$0006",
+        "Dec Address": "6",
+        "Type": "Pointer",
+        "Purpose": "High byte pointing to 45969/$B391; a ROM routine for converting integer numbers to floating point format",
+        "length": 1
+    },
+    "7": {
+        "Hex Address": "$0007",
+        "Dec Address": "7",
+        "Type": "Flag",
+        "Purpose": "Search character/temporary integer during INT, OR and AND",
+        "length": 1
+    },
+    "8": {
+        "Hex Address": "$0008",
+        "Dec Address": "8",
+        "Type": "Flag",
+        "Purpose": "Scan for quote character at end of string during tokenization of BASIC commands.",
+        "length": 1
+    },
+    "9": {
+        "Hex Address": "$0009",
+        "Dec Address": "9",
+        "Type": "Value",
+        "Purpose": "Cursor column position after last invocation of TAB or SPC",
+        "length": 1
+    },
+    "10": {
+        "Hex Address": "$000A",
+        "Dec Address": "10",
+        "Type": "Flag",
+        "Purpose": "Sets condition for BASIC Interpreter function; 0 = LOAD, 1 = VERIFY",
+        "length": 1
+    },
+    "11": {
+        "Hex Address": "$000B",
+        "Dec Address": "11",
+        "Type": "Pointer",
+        "Purpose": "Input buffer pointer/number of subscripts for DIM, line length for tokenization",
+        "length": 1
+    },
+    "12": {
+        "Hex Address": "$000C",
+        "Dec Address": "12",
+        "Type": "Flag",
+        "Purpose": "Default size of array for DIM",
+        "length": 1
+    },
+    "13": {
+        "Hex Address": "$000D",
+        "Dec Address": "13",
+        "Type": "Flag",
+        "Purpose": "Variable type; 0 = numeric, 255 = character string",
+        "length": 1
+    },
+    "14": {
+        "Hex Address": "$000E",
+        "Dec Address": "14",
+        "Type": "Flag",
+        "Purpose": "Numeric variable type flag; 0 = floating-point, 128 = integer",
+        "length": 1
+    },
+    "15": {
+        "Hex Address": "$000F",
+        "Dec Address": "15",
+        "Type": "Flag",
+        "Purpose": "For LIST, Garbage Collection or tokenization",
+        "length": 1
+    },
+    "16": {
+        "Hex Address": "$0010",
+        "Dec Address": "16",
+        "Type": "Flag",
+        "Purpose": "Distinguishes between user function call or array variable",
+        "length": 1
+    },
+    "17": {
+        "Hex Address": "$0011",
+        "Dec Address": "17",
+        "Type": "Flag",
+        "Purpose": "Designates data entry method; 0 = INPUT, 64 = GET or 152 = READ",
+        "length": 1
+    },
+    "18": {
+        "Hex Address": "$0012",
+        "Dec Address": "18",
+        "Type": "Flag",
+        "Purpose": "Tracks sign of trigonometric function calls (255 in quadrant 2/3 for SIN or TAN or quadrant 1/2 for COS, 0 otherwise), or tracks comparison operator (1 = >, 2 = equals, 4 = <, is bit-field combination)",
+        "length": 1
+    },
+    "19": {
+        "Hex Address": "$0013",
+        "Dec Address": "19",
+        "Type": "Flag",
+        "Purpose": "Current input filenumber: 0 = default input (Keyboard), > 0 other open file",
+        "length": 1
+    },
+    "20": {
+        "Hex Address": "$0014",
+        "Dec Address": "20",
+        "Type": "Pointer",
+        "Purpose": "Low Byte target line number for ON, GOTO, GOSUB and LIST, and address for PEEK, POKE and SYS",
+        "length": 1
+    },
+    "21": {
+        "Hex Address": "$0015",
+        "Dec Address": "21",
+        "Type": "Pointer",
+        "Purpose": "High byte target line number for ON, GOTO, GOSUB and LIST, and address for PEEK, POKE and SYS",
+        "length": 1
+    },
+    "22": {
+        "Hex Address": "$0016",
+        "Dec Address": "22",
+        "Type": "Pointer",
+        "Purpose": "Next available element on the temporary string descriptor stack in address range from  25 to 33 ($0019-$0021)",
+        "length": 1
+    },
+    "23": {
+        "Hex Address": "$0017",
+        "Dec Address": "23",
+        "Type": "Pointer",
+        "Purpose": "Low Byte of last used temporary string address or string stack pointer; value = 3 less than the value at address 22 ($0016)",
+        "length": 1
+    },
+    "24": {
+        "Hex Address": "$0018",
+        "Dec Address": "24",
+        "Type": "Pointer",
+        "Purpose": "High byte of last used temporary string address or string stack pointer; value = 0",
+        "length": 1
+    },
+    "25": {
+        "Hex Address": "$0019-$0021",
+        "Dec Address": "25-33",
+        "Type": "",
+        "Purpose": "Temporary string stack: holds 3 string descriptors each consisting of length and start address of string",
+        "length": 9
+    },
+    "34": {
+        "Hex Address": "$0022-$0025",
+        "Dec Address": "34-37",
+        "Type": "Pointer",
+        "Purpose": "Utility pointer area for the BASIC interpreter",
+        "length": 4
+    },
+    "38": {
+        "Hex Address": "$0026-$002A",
+        "Dec Address": "38-42",
+        "Type": "",
+        "Purpose": "Floating point result of multiplication or division",
+        "length": 5
+    },
+    "43": {
+        "Hex Address": "$002B",
+        "Dec Address": "43",
+        "Type": "Pointer",
+        "Purpose": "Low Byte TXTTAB, start of BASIC program text, default: 2049 / $0801",
+        "length": 1
+    },
+    "44": {
+        "Hex Address": "$002C",
+        "Dec Address": "44",
+        "Type": "Pointer",
+        "Purpose": "High byte TXTTAB, start of BASIC program text, default: 2049 / $0801",
+        "length": 1
+    },
+    "45": {
+        "Hex Address": "$002D",
+        "Dec Address": "45",
+        "Type": "Pointer",
+        "Purpose": "Low Byte VARTAB, end of BASIC program text+1 / start of numeric variables",
+        "length": 1
+    },
+    "46": {
+        "Hex Address": "$002E",
+        "Dec Address": "46",
+        "Type": "Pointer",
+        "Purpose": "High byte VARTAB, end of BASIC program text+1 / start of numeric variables",
+        "length": 1
+    },
+    "47": {
+        "Hex Address": "$002F",
+        "Dec Address": "47",
+        "Type": "Pointer",
+        "Purpose": "Low Byte ARYTAB, end of numeric Variables+1 / start of array variables",
+        "length": 1
+    },
+    "48": {
+        "Hex Address": "$0030",
+        "Dec Address": "48",
+        "Type": "Pointer",
+        "Purpose": "High byte ARYTAB, end of numeric Variables+1 / start of array variables",
+        "length": 1
+    },
+    "49": {
+        "Hex Address": "$0031",
+        "Dec Address": "49",
+        "Type": "Pointer",
+        "Purpose": "Low Byte STREND, end of array variables+1 / lowest address for string stack",
+        "length": 1
+    },
+    "50": {
+        "Hex Address": "$0032",
+        "Dec Address": "50",
+        "Type": "Pointer",
+        "Purpose": "High byte STREND, end of array variables+1 / lowest address for string stack",
+        "length": 1
+    },
+    "51": {
+        "Hex Address": "$0033",
+        "Dec Address": "51",
+        "Type": "Pointer",
+        "Purpose": "Low Byte FRETOP, top of string stack",
+        "length": 1
+    },
+    "52": {
+        "Hex Address": "$0034",
+        "Dec Address": "52",
+        "Type": "Pointer",
+        "Purpose": "High byte FRETOP, top of string stack",
+        "length": 1
+    },
+    "53": {
+        "Hex Address": "$0035",
+        "Dec Address": "53",
+        "Type": "Pointer",
+        "Purpose": "Low Byte FRESPC, utility pointer for strings",
+        "length": 1
+    },
+    "54": {
+        "Hex Address": "$0036",
+        "Dec Address": "54",
+        "Type": "Pointer",
+        "Purpose": "High byte FRESPC, utility pointer for strings",
+        "length": 1
+    },
+    "55": {
+        "Hex Address": "$0037",
+        "Dec Address": "55",
+        "Type": "Pointer",
+        "Purpose": "Low Byte MEMSIZ, highest BASIC RAM address / bottom of string stack",
+        "length": 1
+    },
+    "56": {
+        "Hex Address": "$0038",
+        "Dec Address": "56",
+        "Type": "Pointer",
+        "Purpose": "High byte MEMSIZ, highest BASIC RAM address / bottom of string stack",
+        "length": 1
+    },
+    "57": {
+        "Hex Address": "$0039",
+        "Dec Address": "57",
+        "Type": "Pointer",
+        "Purpose": "Low Byte current BASIC line number",
+        "length": 1
+    },
+    "58": {
+        "Hex Address": "$003A",
+        "Dec Address": "58",
+        "Type": "Pointer",
+        "Purpose": "High byte current BASIC line number",
+        "length": 1
+    },
+    "59": {
+        "Hex Address": "$003B",
+        "Dec Address": "59",
+        "Type": "Pointer",
+        "Purpose": "Low Byte previous BASIC line number for CONT after STOP",
+        "length": 1
+    },
+    "60": {
+        "Hex Address": "$003C",
+        "Dec Address": "60",
+        "Type": "Pointer",
+        "Purpose": "High byte previous BASIC line number for CONT after STOP",
+        "length": 1
+    },
+    "61": {
+        "Hex Address": "$003D",
+        "Dec Address": "61",
+        "Type": "Pointer",
+        "Purpose": "Low Byte next BASIC statement for CONT",
+        "length": 1
+    },
+    "62": {
+        "Hex Address": "$003E",
+        "Dec Address": "62",
+        "Type": "",
+        "Purpose": "High byte next BASIC statement for CONT",
+        "length": 1
+    },
+    "63": {
+        "Hex Address": "$003F",
+        "Dec Address": "63",
+        "Type": "",
+        "Purpose": "Low Byte current DATA line",
+        "length": 1
+    },
+    "64": {
+        "Hex Address": "$0040",
+        "Dec Address": "64",
+        "Type": "",
+        "Purpose": "High byte current DATA line",
+        "length": 1
+    },
+    "65": {
+        "Hex Address": "$0041-$0042",
+        "Dec Address": "65-66",
+        "Type": "",
+        "Purpose": "next DATA item for READ",
+        "length": 2
+    },
+    "67": {
+        "Hex Address": "$0043",
+        "Dec Address": "67",
+        "Type": "",
+        "Purpose": "temporary storage for INPUT",
+        "length": 1
+    },
+    "68": {
+        "Hex Address": "$0044",
+        "Dec Address": "68",
+        "Type": "",
+        "Purpose": "temporary storage for INPUT",
+        "length": 1
+    },
+    "69": {
+        "Hex Address": "$0045",
+        "Dec Address": "69",
+        "Type": "",
+        "Purpose": "Name of variable to look up in variable table (VARNAM).",
+        "length": 1
+    },
+    "70": {
+        "Hex Address": "$0046",
+        "Dec Address": "70",
+        "Type": "",
+        "Purpose": "Name of variable to look up in variable table (VARNAM).",
+        "length": 1
+    },
+    "71": {
+        "Hex Address": "$0047",
+        "Dec Address": "71",
+        "Type": "",
+        "Purpose": "VARNAM of current variable if integer; to descriptor if string",
+        "length": 1
+    },
+    "72": {
+        "Hex Address": "$0048",
+        "Dec Address": "72",
+        "Type": "",
+        "Purpose": "VARNAM of current variable if integer; to descriptor if string",
+        "length": 1
+    },
+    "73": {
+        "Hex Address": "$0049",
+        "Dec Address": "73",
+        "Type": "",
+        "Purpose": "Index variable of FOR ... NEXT loop",
+        "length": 1
+    },
+    "74": {
+        "Hex Address": "$004A",
+        "Dec Address": "74",
+        "Type": "",
+        "Purpose": "Index variable of FOR ... NEXT loop",
+        "length": 1
+    },
+    "75": {
+        "Hex Address": "$004B",
+        "Dec Address": "75",
+        "Type": "",
+        "Purpose": "Temporary storage for mathematical operations or TXTPTR during READ/GET/INPUT",
+        "length": 1
+    },
+    "76": {
+        "Hex Address": "$004C",
+        "Dec Address": "76",
+        "Type": "",
+        "Purpose": "Temporary storage for mathematical operations or TXTPTR during READ/GET/INPUT",
+        "length": 1
+    },
+    "77": {
+        "Hex Address": "$004D",
+        "Dec Address": "77",
+        "Type": "",
+        "Purpose": "Mask used during evaluation (FRMEVL) of &lt;, &gt;, =",
+        "length": 1
+    },
+    "78": {
+        "Hex Address": "$004E-$004F",
+        "Dec Address": "78-79",
+        "Type": "",
+        "Purpose": "Temporary storage for FN or floating point value during FLPT",
+        "length": 2
+    },
+    "80": {
+        "Hex Address": "$0050-$0052",
+        "Dec Address": "80-82",
+        "Type": "",
+        "Purpose": "Strings",
+        "length": 3
+    },
+    "83": {
+        "Hex Address": "$0053",
+        "Dec Address": "83",
+        "Type": "",
+        "Purpose": "Length of string variable during Garbage Collection",
+        "length": 1
+    },
+    "84": {
+        "Hex Address": "$0054",
+        "Dec Address": "84",
+        "Type": "Constant",
+        "Purpose": "Processor opcode \"JMP absolute\"; value = 76",
+        "length": 1
+    },
+    "85": {
+        "Hex Address": "$0055-$0056",
+        "Dec Address": "85-86",
+        "Type": "",
+        "Purpose": "Pointer during function evaluation",
+        "length": 2
+    },
+    "87": {
+        "Hex Address": "$0057-$005B",
+        "Dec Address": "87-91",
+        "Type": "",
+        "Purpose": "Register for TAN (floating point accumulator (FAC) #3)",
+        "length": 5
+    },
+    "92": {
+        "Hex Address": "$005C-$0060",
+        "Dec Address": "92-96",
+        "Type": "",
+        "Purpose": "Register for TAN (FAC #4)",
+        "length": 5
+    },
+    "97": {
+        "Hex Address": "$0061",
+        "Dec Address": "97",
+        "Type": "",
+        "Purpose": "Floating point accumulator (FAC) #1 exponent",
+        "length": 1
+    },
+    "98": {
+        "Hex Address": "$0062",
+        "Dec Address": "98",
+        "Type": "",
+        "Purpose": "Floating point accumulator (FAC) #1 mantissa",
+        "length": 1
+    },
+    "99": {
+        "Hex Address": "$0063",
+        "Dec Address": "99",
+        "Type": "",
+        "Purpose": "Floating point accumulator (FAC) #1 mantissa",
+        "length": 1
+    },
+    "100": {
+        "Hex Address": "$0064",
+        "Dec Address": "100",
+        "Type": "",
+        "Purpose": "Floating point accumulator (FAC) #1 mantissa",
+        "length": 1
+    },
+    "101": {
+        "Hex Address": "$0065",
+        "Dec Address": "101",
+        "Type": "",
+        "Purpose": "Floating point accumulator (FAC) #1 mantissa",
+        "length": 1
+    },
+    "102": {
+        "Hex Address": "$0066",
+        "Dec Address": "102",
+        "Type": "",
+        "Purpose": "Floating point accumulator (FAC) #1 sign",
+        "length": 1
+    },
+    "103": {
+        "Hex Address": "$0067",
+        "Dec Address": "103",
+        "Type": "",
+        "Purpose": "Number of terms in series evaluation",
+        "length": 1
+    },
+    "104": {
+        "Hex Address": "$0068",
+        "Dec Address": "104",
+        "Type": "",
+        "Purpose": "FAC #1: bit overflow area during normalization",
+        "length": 1
+    },
+    "105": {
+        "Hex Address": "$0069",
+        "Dec Address": "105",
+        "Type": "",
+        "Purpose": "Floating point accumulator (FAC) #2 exponent",
+        "length": 1
+    },
+    "106": {
+        "Hex Address": "$006A",
+        "Dec Address": "106",
+        "Type": "",
+        "Purpose": "Floating point accumulator (FAC) #2 mantissa",
+        "length": 1
+    },
+    "107": {
+        "Hex Address": "$006B",
+        "Dec Address": "107",
+        "Type": "",
+        "Purpose": "Floating point accumulator (FAC) #2 mantissa",
+        "length": 1
+    },
+    "108": {
+        "Hex Address": "$006C",
+        "Dec Address": "108",
+        "Type": "",
+        "Purpose": "Floating point accumulator (FAC) #2 mantissa",
+        "length": 1
+    },
+    "109": {
+        "Hex Address": "$006D",
+        "Dec Address": "109",
+        "Type": "",
+        "Purpose": "Floating point accumulator (FAC) #2 mantissa",
+        "length": 1
+    },
+    "110": {
+        "Hex Address": "$006E",
+        "Dec Address": "110",
+        "Type": "",
+        "Purpose": "Floating point accumulator (FAC) #2 sign",
+        "length": 1
+    },
+    "111": {
+        "Hex Address": "$006F",
+        "Dec Address": "111",
+        "Type": "Flag",
+        "Purpose": "Result of signed comparison between FAC #1 and FAC #2: 0 = equal signs, 255 = different signs",
+        "length": 1
+    },
+    "112": {
+        "Hex Address": "$0070",
+        "Dec Address": "112",
+        "Type": "",
+        "Purpose": "FAC #2: low byte of FAC #1 mantissa during rounding if mantissa bigger longer than four bytes",
+        "length": 1
+    },
+    "113": {
+        "Hex Address": "$0071-$0072",
+        "Dec Address": "113-114",
+        "Type": "Pointer",
+        "Purpose": "To temporary table during series evaluation",
+        "length": 2
+    },
+    "115": {
+        "Hex Address": "$0073-$008A",
+        "Dec Address": "115-138",
+        "Type": "",
+        "Purpose": "CHRGET routine: fetches next character of BASIC program text",
+        "length": 24
+    },
+    "139": {
+        "Hex Address": "$008B-$008F",
+        "Dec Address": "139-143",
+        "Type": "",
+        "Purpose": "Seed stored by last invocation of RND",
+        "length": 5
+    },
+    "144": {
+        "Hex Address": "$0090",
+        "Dec Address": "144",
+        "Type": "",
+        "Purpose": "KERNAL I/O STATUS indicates end of file if bit 6 is set",
+        "length": 1
+    },
+    "145": {
+        "Hex Address": "$0091",
+        "Dec Address": "145",
+        "Type": "Flag",
+        "Purpose": "127 = {{Key|stop}}, 223 = {{Key|C&#061;}}, 239 = {{Key|SPACE}}, 251 = {{Key|CTRL}}, 255 = no key pressed",
+        "length": 1
+    },
+    "146": {
+        "Hex Address": "$0092",
+        "Dec Address": "146",
+        "Type": "",
+        "Purpose": "Constant for timing of cassette reads",
+        "length": 1
+    },
+    "147": {
+        "Hex Address": "$0093",
+        "Dec Address": "147",
+        "Type": "Flag",
+        "Purpose": "KERNAL LOAD routine: 0 = LOAD, 1 = VERIFY",
+        "length": 1
+    },
+    "148": {
+        "Hex Address": "$0094",
+        "Dec Address": "148",
+        "Type": "Flag",
+        "Purpose": "Character waiting in serial bus output register",
+        "length": 1
+    },
+    "149": {
+        "Hex Address": "$0095",
+        "Dec Address": "149",
+        "Type": "",
+        "Purpose": "Serial bus output register",
+        "length": 1
+    },
+    "150": {
+        "Hex Address": "$0096",
+        "Dec Address": "150",
+        "Type": "",
+        "Purpose": "Cassette block synchronisation number",
+        "length": 1
+    },
+    "151": {
+        "Hex Address": "$0097",
+        "Dec Address": "151",
+        "Type": "",
+        "Purpose": "Temporary storage for X register",
+        "length": 1
+    },
+    "152": {
+        "Hex Address": "$0098",
+        "Dec Address": "152",
+        "Type": "",
+        "Purpose": "Number of open I/O file; pointer to top of file table (see addresses 601-631)",
+        "length": 1
+    },
+    "153": {
+        "Hex Address": "$0099",
+        "Dec Address": "153",
+        "Type": "",
+        "Purpose": "Current input device: defaults to 0 = keyboard",
+        "length": 1
+    },
+    "154": {
+        "Hex Address": "$009A",
+        "Dec Address": "154",
+        "Type": "",
+        "Purpose": "Current output device for CMD: defaults to 3 = screen",
+        "length": 1
+    },
+    "155": {
+        "Hex Address": "$009B",
+        "Dec Address": "155",
+        "Type": "",
+        "Purpose": "Cassette parity byte",
+        "length": 1
+    },
+    "156": {
+        "Hex Address": "$009C",
+        "Dec Address": "156",
+        "Type": "Flag",
+        "Purpose": "Tape byte received",
+        "length": 1
+    },
+    "157": {
+        "Hex Address": "$009D",
+        "Dec Address": "157",
+        "Type": "Flag",
+        "Purpose": "KERNAL message display control: bit 6 = error messages, bit 7 = control message",
+        "length": 1
+    },
+    "158": {
+        "Hex Address": "$009E",
+        "Dec Address": "158",
+        "Type": "",
+        "Purpose": "Cassette read pass 1 error log",
+        "length": 1
+    },
+    "159": {
+        "Hex Address": "$009F",
+        "Dec Address": "159",
+        "Type": "",
+        "Purpose": "Cassette read pass 2 error log",
+        "length": 1
+    },
+    "160": {
+        "Hex Address": "$00A0-$00A2",
+        "Dec Address": "160-162",
+        "Type": "",
+        "Purpose": "Software jiffy clock, updated by KERNAL IRQ every 1/60 second",
+        "length": 3
+    },
+    "163": {
+        "Hex Address": "$00A3-$00A4",
+        "Dec Address": "163-164",
+        "Type": "",
+        "Purpose": "Bit counter for serial bus / cassette I/O (EOI)",
+        "length": 2
+    },
+    "165": {
+        "Hex Address": "$00A5",
+        "Dec Address": "165",
+        "Type": "",
+        "Purpose": "Cassette synchronization byte counter",
+        "length": 1
+    },
+    "166": {
+        "Hex Address": "$00A6",
+        "Dec Address": "166",
+        "Type": "",
+        "Purpose": "Number of characters in cassette I/O buffer",
+        "length": 1
+    },
+    "167": {
+        "Hex Address": "$00A7",
+        "Dec Address": "167",
+        "Type": "",
+        "Purpose": "Temporary RS-232 / cassette read data register",
+        "length": 1
+    },
+    "168": {
+        "Hex Address": "$00A8",
+        "Dec Address": "168",
+        "Type": "Counter",
+        "Purpose": "RS-232 input bits received / flag: cassette read error",
+        "length": 1
+    },
+    "169": {
+        "Hex Address": "$00A9",
+        "Dec Address": "169",
+        "Type": "Flag",
+        "Purpose": "RS-232 start bit 0 = received, 144 = not received",
+        "length": 1
+    },
+    "170": {
+        "Hex Address": "$00AA",
+        "Dec Address": "170",
+        "Type": "",
+        "Purpose": "RS-232 input byte buffer / flag: cassette read character sync/data",
+        "length": 1
+    },
+    "171": {
+        "Hex Address": "$00AB",
+        "Dec Address": "171",
+        "Type": "",
+        "Purpose": "RS-232 input parity/cassette leader counter",
+        "length": 1
+    },
+    "172": {
+        "Hex Address": "$00AC",
+        "Dec Address": "172",
+        "Type": "Pointer",
+        "Purpose": "Starting address of a load / screen scrolling temporary storage",
+        "length": 1
+    },
+    "173": {
+        "Hex Address": "$00AD",
+        "Dec Address": "173",
+        "Type": "Pointer",
+        "Purpose": "Starting address of a load / screen scrolling temporary storage",
+        "length": 1
+    },
+    "174": {
+        "Hex Address": "$00AE",
+        "Dec Address": "174",
+        "Type": "Pointer",
+        "Purpose": "End address of LOAD/VERIFY/SAVE",
+        "length": 1
+    },
+    "175": {
+        "Hex Address": "$00AF",
+        "Dec Address": "175",
+        "Type": "Pointer",
+        "Purpose": "End address of LOAD/VERIFY/SAVE",
+        "length": 1
+    },
+    "176": {
+        "Hex Address": "$00B0",
+        "Dec Address": "176",
+        "Type": "Pointer",
+        "Purpose": "Constant for timing of cassette reads (default: 146)",
+        "length": 1
+    },
+    "177": {
+        "Hex Address": "$00B1",
+        "Dec Address": "177",
+        "Type": "Pointer",
+        "Purpose": "Constant for timing of cassette reads (default: 146)",
+        "length": 1
+    },
+    "178": {
+        "Hex Address": "$00B2",
+        "Dec Address": "178",
+        "Type": "Pointer",
+        "Purpose": "Low byte Start of cassette buffer",
+        "length": 1
+    },
+    "179": {
+        "Hex Address": "$00B3",
+        "Dec Address": "179",
+        "Type": "Pointer",
+        "Purpose": "High byte Start of cassette buffer",
+        "length": 1
+    },
+    "180": {
+        "Hex Address": "$00B4",
+        "Dec Address": "180",
+        "Type": "",
+        "Purpose": "RS-232 output bit counter / cassette ready to read next byte",
+        "length": 1
+    },
+    "181": {
+        "Hex Address": "$00B5",
+        "Dec Address": "181",
+        "Type": "",
+        "Purpose": "Next output bit / cassette read block byte counter",
+        "length": 1
+    },
+    "182": {
+        "Hex Address": "$00B6",
+        "Dec Address": "182",
+        "Type": "",
+        "Purpose": "Output buffer",
+        "length": 1
+    },
+    "183": {
+        "Hex Address": "$00B7",
+        "Dec Address": "183",
+        "Type": "",
+        "Purpose": "Length of current file name",
+        "length": 1
+    },
+    "184": {
+        "Hex Address": "$00B8",
+        "Dec Address": "184",
+        "Type": "",
+        "Purpose": "Current logical file number",
+        "length": 1
+    },
+    "185": {
+        "Hex Address": "$00B9",
+        "Dec Address": "185",
+        "Type": "",
+        "Purpose": "Current secondary address",
+        "length": 1
+    },
+    "186": {
+        "Hex Address": "$00BA",
+        "Dec Address": "186",
+        "Type": "",
+        "Purpose": "Current device number",
+        "length": 1
+    },
+    "187": {
+        "Hex Address": "$00BB",
+        "Dec Address": "187",
+        "Type": "Pointer",
+        "Purpose": "Current file name",
+        "length": 1
+    },
+    "188": {
+        "Hex Address": "$00BC",
+        "Dec Address": "188",
+        "Type": "Pointer",
+        "Purpose": "Current file name",
+        "length": 1
+    },
+    "189": {
+        "Hex Address": "$00BD",
+        "Dec Address": "189",
+        "Type": "",
+        "Purpose": "RS-232 output parity / temporary cassette read/write register",
+        "length": 1
+    },
+    "190": {
+        "Hex Address": "$00BE",
+        "Dec Address": "190",
+        "Type": "",
+        "Purpose": "cassette read/write duplicate block counter",
+        "length": 1
+    },
+    "191": {
+        "Hex Address": "$00BF",
+        "Dec Address": "191",
+        "Type": "",
+        "Purpose": "Cassette read byte register",
+        "length": 1
+    },
+    "192": {
+        "Hex Address": "$00C0",
+        "Dec Address": "192",
+        "Type": "Flag",
+        "Purpose": "Cassette motor 0 = off, 1 = on",
+        "length": 1
+    },
+    "193": {
+        "Hex Address": "$00C1",
+        "Dec Address": "193",
+        "Type": "",
+        "Purpose": "Start address for LOAD / SAVE",
+        "length": 1
+    },
+    "194": {
+        "Hex Address": "$00C2",
+        "Dec Address": "194",
+        "Type": "",
+        "Purpose": "Start address for LOAD / SAVE",
+        "length": 1
+    },
+    "195": {
+        "Hex Address": "$00C3",
+        "Dec Address": "195",
+        "Type": "",
+        "Purpose": "End address for LOAD / SAVE",
+        "length": 1
+    },
+    "196": {
+        "Hex Address": "$00C4",
+        "Dec Address": "196",
+        "Type": "",
+        "Purpose": "End address for LOAD / SAVE",
+        "length": 1
+    },
+    "197": {
+        "Hex Address": "$00C5",
+        "Dec Address": "197",
+        "Type": "",
+        "Purpose": "Matrix coordinate of last pressed key, 64 = none",
+        "length": 1
+    },
+    "198": {
+        "Hex Address": "$00C6",
+        "Dec Address": "198",
+        "Type": "",
+        "Purpose": "Number of characters in keyboard buffer",
+        "length": 1
+    },
+    "199": {
+        "Hex Address": "$00C7",
+        "Dec Address": "199",
+        "Type": "Flag",
+        "Purpose": "Print reverse characters, default 0 = normal",
+        "length": 1
+    },
+    "200": {
+        "Hex Address": "$00C8",
+        "Dec Address": "200",
+        "Type": "Pointer",
+        "Purpose": "Last column of current line during INPUT",
+        "length": 1
+    },
+    "201": {
+        "Hex Address": "$00C9",
+        "Dec Address": "201",
+        "Type": "Pointer",
+        "Purpose": "X coordinate of cursor during INPUT",
+        "length": 1
+    },
+    "202": {
+        "Hex Address": "$00CA",
+        "Dec Address": "202",
+        "Type": "",
+        "Purpose": "Y coordinate of cursor during INPUT",
+        "length": 1
+    },
+    "203": {
+        "Hex Address": "$00CB",
+        "Dec Address": "203",
+        "Type": "",
+        "Purpose": "Index to keyboard decoding table for currently pressed key, 64 = no key was depressed",
+        "length": 1
+    },
+    "204": {
+        "Hex Address": "$00CC",
+        "Dec Address": "204",
+        "Type": "Flag",
+        "Purpose": "Flash cursor 0 = yes, otherwise no",
+        "length": 1
+    },
+    "205": {
+        "Hex Address": "$00CD",
+        "Dec Address": "205",
+        "Type": "",
+        "Purpose": "Counter for cursor flashing, default 20, decreased every jiffy",
+        "length": 1
+    },
+    "206": {
+        "Hex Address": "$00CE",
+        "Dec Address": "206",
+        "Type": "",
+        "Purpose": "Character at cursor position",
+        "length": 1
+    },
+    "207": {
+        "Hex Address": "$00CF",
+        "Dec Address": "207",
+        "Type": "Flag",
+        "Purpose": "Cursor flash phase 0 = visible, &gt;0 invisible",
+        "length": 1
+    },
+    "208": {
+        "Hex Address": "$00D0",
+        "Dec Address": "208",
+        "Type": "Flag",
+        "Purpose": "Input from 0 = keyboard or 3 = screen",
+        "length": 1
+    },
+    "209": {
+        "Hex Address": "$00D1",
+        "Dec Address": "209",
+        "Type": "Pointer",
+        "Purpose": "Low byte memory address of current screen line",
+        "length": 1
+    },
+    "210": {
+        "Hex Address": "$00D2",
+        "Dec Address": "210",
+        "Type": "Pointer",
+        "Purpose": "High byte memory address of current screen line",
+        "length": 1
+    },
+    "211": {
+        "Hex Address": "$00D3",
+        "Dec Address": "211",
+        "Type": "",
+        "Purpose": "Column of cursor in current logical line, used by SPC(",
+        "length": 1
+    },
+    "212": {
+        "Hex Address": "$00D4",
+        "Dec Address": "212",
+        "Type": "Flag",
+        "Purpose": "Quote mode, &gt;0 = editor is in quote mode, i.e. control characters are printed as reverse graphic characters",
+        "length": 1
+    },
+    "213": {
+        "Hex Address": "$00D5",
+        "Dec Address": "213",
+        "Type": "",
+        "Purpose": "Maximum column index of logical screen line (39 or 79)",
+        "length": 1
+    },
+    "214": {
+        "Hex Address": "$00D6",
+        "Dec Address": "214",
+        "Type": "",
+        "Purpose": "Current physical line number of cursor",
+        "length": 1
+    },
+    "215": {
+        "Hex Address": "$00D7",
+        "Dec Address": "215",
+        "Type": "",
+        "Purpose": "ASCII value of last printed character",
+        "length": 1
+    },
+    "216": {
+        "Hex Address": "$00D8",
+        "Dec Address": "216",
+        "Type": "Flag",
+        "Purpose": "Insert mode, if &gt; 0 puts editor in quote mode (see address 212 ($00D4))",
+        "length": 1
+    },
+    "217": {
+        "Hex Address": "$00D9-$00F2",
+        "Dec Address": "217-242",
+        "Type": "",
+        "Purpose": "Screen line link table / temporary storage for editor; 26 bytes, one byte for each screen line: bit 0…6 containing to the page based on the start of screen RAM page in $288/648; bit 7 reset indicates that the line together with the previous line forms a logical line longer than 40 characters.<br /> $F2/242 is for a fictive overflow line while scrolling.",
+        "length": 26
+    },
+    "243": {
+        "Hex Address": "$00F3",
+        "Dec Address": "243",
+        "Type": "Pointer",
+        "Purpose": "Low byte first address in Color RAM of current screen line",
+        "length": 1
+    },
+    "244": {
+        "Hex Address": "$00F4",
+        "Dec Address": "244",
+        "Type": "Pointer",
+        "Purpose": "High byte first address in Color RAM of current screen line",
+        "length": 1
+    },
+    "245": {
+        "Hex Address": "$00F5",
+        "Dec Address": "245",
+        "Type": "Pointer",
+        "Purpose": "Low byte keyboard decoding table",
+        "length": 1
+    },
+    "246": {
+        "Hex Address": "$00F6",
+        "Dec Address": "246",
+        "Type": "Pointer",
+        "Purpose": "High byte keyboard decoding table",
+        "length": 1
+    },
+    "247": {
+        "Hex Address": "$00F7",
+        "Dec Address": "247",
+        "Type": "Pointer",
+        "Purpose": "Low byte RS-232 input buffer",
+        "length": 1
+    },
+    "248": {
+        "Hex Address": "$00F8",
+        "Dec Address": "248",
+        "Type": "Pointer",
+        "Purpose": "High byte RS-232 input buffer",
+        "length": 1
+    },
+    "249": {
+        "Hex Address": "$00F9",
+        "Dec Address": "249",
+        "Type": "Pointer",
+        "Purpose": "Low byte RS-232 output buffer",
+        "length": 1
+    },
+    "250": {
+        "Hex Address": "$00FA",
+        "Dec Address": "250",
+        "Type": "Pointer",
+        "Purpose": "High byte RS-232 output buffer",
+        "length": 1
+    },
+    "251": {
+        "Hex Address": "$00FB",
+        "Dec Address": "251",
+        "Type": "",
+        "Purpose": "Unused",
+        "length": 1
+    },
+    "252": {
+        "Hex Address": "$00FC",
+        "Dec Address": "252",
+        "Type": "",
+        "Purpose": "Unused",
+        "length": 1
+    },
+    "253": {
+        "Hex Address": "$00FD",
+        "Dec Address": "253",
+        "Type": "",
+        "Purpose": "Unused",
+        "length": 1
+    },
+    "254": {
+        "Hex Address": "$00FE",
+        "Dec Address": "254",
+        "Type": "",
+        "Purpose": "Unused",
+        "length": 1
+    },
+    "255": {
+        "Hex Address": "$00FF",
+        "Dec Address": "255",
+        "Type": "",
+        "Purpose": "Temporary register for BASIC floating point to ASCII conversion",
+        "length": 1
+    }
+}

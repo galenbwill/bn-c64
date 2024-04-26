@@ -1,0 +1,385 @@
+<-- https://www.c64-wiki.com/index.php?title=Zeropage&action=edit&section=1 -->
+== Addresses ==
+{| {{Wikitable}}
+!Hex Address
+!Dec Address
+!Type
+!Purpose
+|-
+| rowspan="9" valign="top" | $0000 ||rowspan="9" valign="top" |  0 || rowspan="9" valign="top" | Register || 6510 CPU's data direction I/O port register; 0 = input, 1 = output
+|- 
+| Bit 0 - Direction of I/O on port at bit 0 of address $0001; default = 1
+|-
+| Bit 1 - Direction of I/O on port at bit 1 of address $0001; default = 1
+|-
+| Bit 2 - Direction of I/O on port at bit 2 of address $0001; default = 1
+|-
+| Bit 3 - Direction of I/O on port at bit 3 of address $0001; default = 1
+|-
+| Bit 4 - Direction of I/O on port at bit 4 of address $0001; default = 0
+|-
+| Bit 5 - Direction of I/O on port at bit 5 of address $0001; default = 1
+|-
+| Bit 6 - Direction of I/O on port at bit 6 of address $0001; unused, as bit 6 of address $0001 is undefined
+|-
+| Bit 7 - Direction of I/O on port at bit 7 of address $0001; unused, as bit 7 of address $0001 is undefined
+|-
+| rowspan="9" valign="top" | $0001 ||rowspan="9" valign="top" | 1 || rowspan="9" valign="top" | Register || 6510 CPU's on-chip port register
+|-
+| Bit 0 - LORAM: Configures [[RAM]] or [[ROM]] at $A000-$BFFF (see [[Bankswitching|bankswitching]])
+|-
+| Bit 1 - HIRAM: Configures [[RAM]] or [[ROM]] at $E000-$FFFF (see [[Bankswitching|bankswitching]])
+|-
+| Bit 2 - CHAREN: Configures [[I/O]] or [[ROM]] at $D000-$DFFF (see [[Bankswitching|bankswitching]])
+|-
+| Bit 3 - Cassette Data Output Line ([[Datasette]])
+|-
+| Bit 4 - Cassette Switch Sense; 1 = Switch Closed
+|-
+| Bit 5 - Cassette Motor Control; 0 = On, 1 = Off
+|-
+| Bit 6 - Undefined
+|-
+| Bit 7 - Undefined
+|-
+| $0002 || 2 ||  || Unused
+|-
+| $0003 || 3 || Pointer || [[Low-Byte|Low Byte]] pointing to address 45482/$B1AA; a [[ROM]] routine for converting [[Floating point arithmetic|floating point]] numbers to integers
+|-
+| $0004 || 4 || Pointer || [[High-byte|High byte]] pointing to address 45482/$B1AA; a [[ROM]] routine for converting [[Floating point arithmetic|floating point]] numbers to integers
+|-
+| $0005 || 5 || Pointer || [[Low-Byte|Low Byte]] pointing to 45969/$B391; a [[ROM]] routine for converting integer numbers to [[Floating point arithmetic|floating point]] format
+|-
+| $0006 || 6 || Pointer || [[High-byte|High byte]] pointing to 45969/$B391; a [[ROM]] routine for converting integer numbers to [[Floating point arithmetic|floating point]] format
+|-
+| $0007 || 7 || Flag || Search character/temporary integer during [[INT]], [[OR]] and [[AND]]
+|-
+| $0008 || 8 || Flag || Scan for quote character at end of string during tokenization of BASIC commands.
+|-
+| $0009 || 9 || Value || [[Cursor]] column position after last invocation of [[TAB]] or [[SPC]] 
+|-
+| $000A || 10 || Flag || Sets condition for BASIC [[Interpreter]] function; 0 = [[LOAD]], 1 = [[VERIFY]]
+|-
+| $000B || 11 || Pointer || Input buffer pointer/number of subscripts for [[DIM]], line length for tokenization
+|-
+| $000C || 12 || Flag || Default size of array for [[DIM]]
+|-
+| $000D || 13 || Flag || Variable type; 0 = numeric, 255 = character string
+|-
+| $000E || 14 || Flag || Numeric variable type flag; 0 = floating-point, 128 = integer
+|-
+| $000F || 15 || Flag || For [[LIST]], [[Garbage Collection]] or tokenization
+|-
+| $0010 || 16 || Flag || Distinguishes between user function call or array variable
+|-
+| $0011 || 17 || Flag || Designates data entry method; 0 = [[INPUT]], 64 = [[GET]] or 152 = [[READ]]
+|-
+| $0012 || 18 || Flag || Tracks sign of trigonometric function calls (255 in quadrant 2/3 for [[SIN]] or [[TAN]] or quadrant 1/2 for [[COS]], 0 otherwise), or tracks comparison operator (1 = >, 2 = equals, 4 = <, is bit-field combination)
+|-
+| $0013 || 19 || Flag || Current input filenumber: 0 = default input ([[Keyboard]]), > 0 other open file
+|-
+| $0014 || 20 || Pointer || [[Low-Byte|Low Byte]] target line number for [[ON]], [[GOTO]], [[GOSUB]] and [[LIST]], and address for [[PEEK]], [[POKE]] and [[SYS]]
+|-
+| $0015 || 21 || Pointer || [[High-byte|High byte]] target line number for [[ON]], [[GOTO]], [[GOSUB]] and [[LIST]], and address for [[PEEK]], [[POKE]] and [[SYS]]
+|-
+| $0016 || 22 || Pointer || Next available element on the temporary string descriptor stack in address range from  25 to 33 ($0019-$0021)
+|-
+| $0017 || 23 || Pointer || [[Low-Byte|Low Byte]] of last used temporary string address or string stack pointer; value = 3 less than the value at address 22 ($0016)
+|-
+| $0018 || 24 || Pointer || [[High-byte|High byte]] of last used temporary string address or string stack pointer; value = 0
+|-
+| $0019-$0021 || 25-33 ||  || Temporary string stack: holds 3 string descriptors each consisting of length and start address of string
+|-
+| $0022-$0025 || 34-37 || Pointer || Utility pointer area for the [[BASIC]] interpreter
+|-
+| $0026-$002A || 38-42 ||  || Floating point result of multiplication or division
+|-
+| $002B || 43 || Pointer  || [[Low-Byte|Low Byte]] TXTTAB, start of [[BASIC]] program text, default: 2049 / $0801
+|-
+| $002C || 44 || Pointer  || [[High-byte|High byte]] TXTTAB, start of [[BASIC]] program text, default: 2049 / $0801
+|-
+| $002D || 45 || Pointer  || [[Low-Byte|Low Byte]] VARTAB, end of [[BASIC]] program text+1 / start of numeric variables
+|-
+| $002E || 46 || Pointer  || [[High-byte|High byte]] VARTAB, end of [[BASIC]] program text+1 / start of numeric variables
+|-
+| $002F || 47 || Pointer  || [[Low-Byte|Low Byte]] ARYTAB, end of numeric Variables+1 / start of array variables
+|-
+| $0030 || 48 || Pointer  || [[High-byte|High byte]] ARYTAB, end of numeric Variables+1 / start of array variables
+|-
+| $0031 || 49 || Pointer  || [[Low-Byte|Low Byte]] STREND, end of array variables+1 / lowest address for string stack
+|-
+| $0032 || 50 || Pointer  || [[High-byte|High byte]] STREND, end of array variables+1 / lowest address for string stack
+|-
+| $0033 || 51 || Pointer  || [[Low-Byte|Low Byte]] FRETOP, top of string stack
+|-
+| $0034 || 52 || Pointer  || [[High-byte|High byte]] FRETOP, top of string stack
+|-
+| $0035 || 53 || Pointer  || [[Low-Byte|Low Byte]] FRESPC, utility pointer for strings
+|-
+| $0036 || 54 || Pointer  || [[High-byte|High byte]] FRESPC, utility pointer for strings
+|-
+| $0037 || 55 || Pointer  || [[Low-Byte|Low Byte]] MEMSIZ, highest [[BASIC]] [[RAM]] address / bottom of string stack
+|-
+| $0038 || 56 || Pointer  || [[High-byte|High byte]] MEMSIZ, highest [[BASIC]] [[RAM]] address / bottom of string stack
+|-
+| $0039 || 57 || Pointer  || [[Low-Byte|Low Byte]] current [[BASIC]] line number
+|-
+| $003A || 58 || Pointer  || [[High-byte|High byte]] current [[BASIC]] line number
+|-
+| $003B || 59 || Pointer  || [[Low-Byte|Low Byte]] previous [[BASIC]] line number for [[CONT]] after [[STOP]]
+|-
+| $003C || 60 || Pointer  || [[High-byte|High byte]] previous [[BASIC]] line number for [[CONT]] after [[STOP]]
+|-
+| $003D || 61 || Pointer  || [[Low-Byte|Low Byte]] next [[BASIC]] statement for [[CONT]]
+|-
+| $003E || 62 || || [[High-byte|High byte]] next [[BASIC]] statement for [[CONT]]
+|-
+| $003F || 63 || || [[Low-Byte|Low Byte]] current [[DATA]] line
+|-
+| $0040 || 64 || || [[High-byte|High byte]] current [[DATA]] line
+|-
+| $0041-$0042 || [[65-66]] ||  || next [[DATA]] item for [[READ]]
+|-
+| $0043 || 67 ||  || temporary storage for [[INPUT]]
+|-
+| $0044 || 68 ||  || temporary storage for [[INPUT]]
+|-
+| $0045 || 69 ||  || Name of variable to look up in variable table (VARNAM).
+|-
+| $0046 || 70 ||  || Name of variable to look up in variable table (VARNAM).
+|-
+| $0047 || 71 ||  || VARNAM of current variable if integer; to descriptor if string
+|-
+| $0048 || 72 ||  || VARNAM of current variable if integer; to descriptor if string
+|-
+| $0049 || 73 ||  || Index variable of [[FOR]] ... [[NEXT]] loop
+|-
+| $004A || 74 ||  || Index variable of [[FOR]] ... [[NEXT]] loop
+|-
+| $004B || 75 ||  || Temporary storage for mathematical operations or TXTPTR during READ/GET/INPUT
+|-
+| $004C || 76 ||  || Temporary storage for mathematical operations or TXTPTR during READ/GET/INPUT
+|-
+| $004D || 77 ||  || Mask used during evaluation (FRMEVL) of &lt;, &gt;, =
+|-
+| $004E-$004F || 78-79 ||  || Temporary storage for FN or floating point value during FLPT
+|-
+| $0050-$0052 || 80-82 ||  || Strings
+|-
+| $0053 || 83 ||  || Length of string variable during [[Garbage Collection]]
+|-				
+| $0054 || 84 || Constant || Processor opcode "JMP absolute"; value = 76
+|-				
+| $0055-$0056 || 85-86 ||  || Pointer during function evaluation
+|-				
+| $0057-$005B || 87-91 ||  || Register for [[TAN]] (floating point accumulator ([[FAC]]) #3)
+|-				
+| $005C-$0060 || 92-96 ||  || Register for [[TAN]] ([[FAC]] #4)
+|-				
+| $0061 || 97 ||  || Floating point accumulator ([[FAC]]) #1 exponent
+|-				
+| $0062 || 98 ||  || Floating point accumulator ([[FAC]]) #1 mantissa
+|-				
+| $0063 || 99 ||  || Floating point accumulator ([[FAC]]) #1 mantissa
+|-				
+| $0064 || 100 ||  || Floating point accumulator ([[FAC]]) #1 mantissa
+|-				
+| $0065 || 101 ||  || Floating point accumulator ([[FAC]]) #1 mantissa
+|-				
+| $0066 || 102 ||  || Floating point accumulator ([[FAC]]) #1 sign
+|-				
+| $0067 || 103 ||  || Number of terms in series evaluation
+|-				
+| $0068 || 104 ||  || [[FAC]] #1: bit overflow area during normalization
+|-				
+| $0069 || 105 ||  || Floating point accumulator ([[FAC]]) #2 exponent
+|-				
+| $006A || 106 ||  || Floating point accumulator ([[FAC]]) #2 mantissa
+|-				
+| $006B || 107 ||  || Floating point accumulator ([[FAC]]) #2 mantissa
+|-				
+| $006C || 108||  || Floating point accumulator ([[FAC]]) #2 mantissa
+|-				
+| $006D || 109 ||  || Floating point accumulator ([[FAC]]) #2 mantissa
+|-				
+| $006E || 110 ||  || Floating point accumulator ([[FAC]]) #2 sign
+|-				
+| $006F || 111 || Flag || Result of signed comparison between [[FAC]] #1 and [[FAC]] #2: 0 = equal signs, 255 = different signs
+|-				
+| $0070 || 112 ||  || [[FAC]] #2: low byte of [[FAC]] #1 mantissa during rounding if mantissa bigger longer than four bytes
+|-				
+| $0071-$0072 || 113-114 || Pointer || To temporary table during series evaluation
+|-				
+| $0073-$008A || 115-138 ||  || CHRGET routine: fetches next character of [[BASIC]] program text
+|-				
+| $008B-$008F || 139-143 ||  || Seed stored by last invocation of [[RND]]
+|-				
+| $0090 || 144 ||  || [[KERNAL]] I/O [[STATUS]] indicates end of file if bit 6 is set
+|-				
+| $0091 || 145 || Flag ||  127 = {{Key|stop}}, 223 = {{Key|C&#061;}}, 239 = {{Key|SPACE}}, 251 = {{Key|CTRL}}, 255 = no key pressed
+|-				
+| $0092 || 146 ||  || Constant for timing of cassette reads
+|-				
+| $0093 || 147 || Flag || [[KERNAL]] [[LOAD]] routine: 0 = [[LOAD]], 1 = [[VERIFY]]
+|-				
+| $0094 || 148 || Flag || Character waiting in serial bus output register
+|-				
+| $0095 || 149 ||  || Serial bus output register
+|-				
+| $0096 || 150 ||  || Cassette block synchronisation number
+|-				
+| $0097 || 151 ||  || Temporary storage for X register
+|-				
+| $0098 || 152 ||  || Number of open I/O file; pointer to top of file table (see addresses 601-631)
+|-				
+| $0099 || 153 ||  || Current input device: defaults to 0 = keyboard
+|-				
+| $009A || 154 ||  || Current output device for [[CMD]]: defaults to 3 = screen
+|-				
+| $009B || 155 ||  || Cassette parity byte
+|-				
+| $009C || 156 || Flag || Tape byte received
+|-				
+| $009D || 157 || Flag || [[KERNAL]] message display control: bit 6 = error messages, bit 7 = control message
+|-				
+| $009E || 158 ||  || Cassette read pass 1 error log
+|-				
+| $009F || 159 ||  || Cassette read pass 2 error log
+|-				
+| $00A0-$00A2 || 160-162 ||  || Software jiffy clock, updated by KERNAL IRQ every 1/60 second
+|-				
+| $00A3-$00A4 || 163-164 ||  || Bit counter for serial bus / cassette I/O (EOI)
+|-				
+| $00A5 || 165 ||  || Cassette synchronization byte counter
+|-				
+| $00A6 || 166 ||  || Number of characters in cassette I/O buffer
+|-				
+| $00A7 || 167 ||  || Temporary RS-232 / cassette read data register
+|-				
+| $00A8 || 168 || Counter || RS-232 input bits received / flag: cassette read error
+|-				
+| $00A9 || 169 || Flag || RS-232 start bit 0 = received, 144 = not received
+|-				
+| $00AA || 170 ||  || RS-232 input byte buffer / flag: cassette read character sync/data
+|-				
+| $00AB || 171 ||  || RS-232 input parity/cassette leader counter
+|-				
+| $00AC || 172 || Pointer || Starting address of a load / screen scrolling temporary storage
+|-				
+| $00AD || 173 || Pointer || Starting address of a load / screen scrolling temporary storage
+|-				
+| $00AE || 174 || Pointer || End address of LOAD/VERIFY/SAVE
+|-				
+| $00AF || 175 || Pointer || End address of LOAD/VERIFY/SAVE
+|-				
+| $00B0 || 176 || Pointer || Constant for timing of cassette reads (default: 146)
+|-
+| $00B1 || 177 || Pointer || Constant for timing of cassette reads (default: 146)
+|-
+| $00B2 || 178 || Pointer || Low byte Start of cassette buffer
+|-				
+| $00B3 || 179 || Pointer || High byte Start of cassette buffer
+|-				
+| $00B4 || 180 ||  || RS-232 output bit counter / cassette ready to read next byte
+|-				
+| $00B5 || 181 ||  || Next output bit / cassette read block byte counter
+|-				
+| $00B6 || 182 ||  || Output buffer
+|-				
+| $00B7 || 183 ||  || Length of current file name
+|-				
+| $00B8 || [[184-186|184]] ||  || Current logical file number
+|-				
+| $00B9 || [[184-186|185]] ||  || Current secondary address
+|-				
+| $00BA || [[184-186|186]] ||  || Current device number
+|-				
+| $00BB || 187 || Pointer  || Current file name
+|-				
+| $00BC || 188 || Pointer || Current file name 
+|-				
+| $00BD || 189 ||  || RS-232 output parity / temporary cassette read/write register
+|-	
+| $00BE || 190 ||  || cassette read/write duplicate block counter
+|-
+| $00BF || 191 ||  || Cassette read byte register
+|-
+| $00C0 || 192 || Flag || Cassette motor 0 = off, 1 = on
+|-
+| $00C1 || 193 ||  || Start address for LOAD / SAVE
+|-
+| $00C2 || 194 ||  || Start address for LOAD / SAVE
+|-
+| $00C3 || 195 ||  || End address for LOAD / SAVE
+|-
+| $00C4 || 196 ||  || End address for LOAD / SAVE
+|-
+| $00C5 || [[197]] ||  || Matrix coordinate of last pressed key, 64 = none
+|-
+| $00C6 || [[198]] ||  || Number of characters in keyboard buffer
+|-
+| $00C7 || [[199]] || Flag || Print reverse characters, default 0 = normal
+|-
+| $00C8 || 200 || Pointer || Last column of current line during INPUT
+|- 
+| $00C9 || 201 || Pointer || X coordinate of cursor during INPUT
+|-
+| $00CA || 202 ||  || Y coordinate of cursor during INPUT
+|-
+| $00CB || [[203]] ||  || Index to keyboard decoding table for currently pressed key, 64 = no key was depressed
+|-
+| $00CC || 204 || Flag || Flash cursor 0 = yes, otherwise no
+|-
+| $00CD || 205 ||  || Counter for cursor flashing, default 20, decreased every jiffy
+|-	
+| $00CE || 206 ||  || Character at cursor position
+|-
+| $00CF || 207 || Flag || Cursor flash phase 0 = visible, &gt;0 invisible
+|-
+| $00D0 || 208 || Flag || Input from 0 = keyboard or 3 = screen
+|-
+| $00D1 || 209 || Pointer || Low byte memory address of current screen line
+|-
+| $00D2 || 210 || Pointer || High byte memory address of current screen line
+|-
+| $00D3 || 211 ||  || Column of cursor in current logical line, used by [[SPC(]]
+|-
+| $00D4 || [[212]] || Flag || Quote mode, &gt;0 = editor is in quote mode, i.e. control characters are printed as reverse graphic characters
+|-
+| $00D5 || 213 ||  || Maximum column index of logical screen line (39 or 79)
+|-
+| $00D6 || 214 ||  || Current physical line number of cursor
+|-
+| $00D7 || 215 ||  || ASCII value of last printed character
+|-
+| $00D8 || 216 || Flag || Insert mode, if &gt; 0 puts editor in quote mode (see address 212 ($00D4))
+|-
+| $00D9-$00F2 || 217-242 ||  || Screen line link table / temporary storage for editor; 26 bytes, one byte for each screen line: bit 0…6 containing to the page based on the start of screen RAM page in $288/648; bit 7 reset indicates that the line together with the previous line forms a logical line longer than 40 characters.<br /> $F2/242 is for a fictive overflow line while scrolling. 
+|-
+| $00F3 || 243 || Pointer || Low byte first address in [[Color RAM]] of current screen line
+|-
+| $00F4 || 244 || Pointer || High byte first address in [[Color RAM]] of current screen line
+|-
+| $00F5 || 245 || Pointer || Low byte keyboard decoding table 
+|-
+| $00F6 || 246 || Pointer || High byte keyboard decoding table 
+|-
+| $00F7 || 247 || Pointer || Low byte RS-232 input buffer
+|-
+| $00F8 || 248 || Pointer || High byte RS-232 input buffer
+|-
+| $00F9 || 249 || Pointer || Low byte RS-232 output buffer
+|-
+| $00FA || 250 || Pointer || High byte RS-232 output buffer
+|-
+| $00FB || 251 ||  || Unused
+|-
+| $00FC || 252 ||  || Unused
+|-
+| $00FD || 253 ||  || Unused
+|-
+| $00FE || 254 ||  || Unused
+|-
+| $00FF || 255 ||  || Temporary register for [[BASIC]] floating point to ASCII conversion
+|-
+|}

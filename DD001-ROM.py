@@ -1,5 +1,10 @@
 # Incomplete and full of bugs. Do not use for serious work.
 
+import collections
+import glob
+import json
+import pathlib
+import re
 import struct
 import traceback
 
@@ -14,6 +19,603 @@ from binaryninja import PluginCommand
 from binaryninja.types import Type
 
 from inspect import currentframe, getframeinfo # for getting line nr
+
+# curl https://skoolkid.github.io/sk6502/c64rom/maps/all.html | pandoc -f html -t plain -o - | grep -F '|' | awk -F '|' '{print $2, $3}'
+ROM_MAP_TXT = """\
+ A000                                start of the BASIC ROM            
+ A00C                                action addresses for primary      
+                                     commands                          
+ A052                                action addresses for functions    
+ A080                                precedence byte and action        
+                                     addresses for operators           
+ A09E                                BASIC keywords                    
+ A19E                                BASIC error messages              
+ A328                                error message pointer table       
+ A364                                BASIC messages                    
+ A389                                spare byte, not referenced        
+ A38A                                search the stack for FOR or GOSUB 
+                                     activity                          
+ A3B8                                open up a space in the memory,    
+                                     set the end of arrays             
+ A3FB                                check room on stack for A bytes   
+ A408                                check available memory, do out of 
+                                     memory error if no room           
+ A435                                do out of memory error then warm  
+                                     start                             
+ A43A                                do error #X then warm start       
+ A469                                print string and do warm start,   
+                                     break entry                       
+ A474                                do warm start                     
+ A483                                BASIC warm start                  
+ A49C                                handle new BASIC line             
+ A533                                rebuild BASIC line chaining       
+ A560                                call for BASIC input              
+ A579                                crunch BASIC tokens vector        
+ A57C                                crunch BASIC tokens               
+ A613                                search BASIC for temporary        
+                                     integer line number               
+ A617                                search Basic for temp integer     
+                                     line number from AX               
+ A642                                perform NEW                       
+ A659                                reset execute pointer and do CLR  
+ A65E                                perform CLR                       
+ A677                                do RESTORE and clear stack        
+ A67A                                flush BASIC stack and clear the   
+                                     continue pointer                  
+ A68E                                set BASIC execute pointer to      
+                                     start of memory - 1               
+ A69C                                perform LIST                      
+ A71A                                uncrunch BASIC tokens             
+ A742                                perform FOR                       
+ A7AE                                interpreter inner loop            
+ A81D                                perform RESTORE                   
+ A82C                                do CRTL-C check vector            
+ A82F                                perform STOP                      
+ A831                                perform END                       
+ A857                                perform CONT                      
+ A871                                perform RUN                       
+ A883                                perform GOSUB                     
+ A8A0                                perform GOTO                      
+ A8BC                                search for line number in         
+                                     temporary integer from start of   
+                                     memory pointer                    
+ A8C0                                search for line # in temporary    
+                                     integer from (AX)                 
+ A8D2                                perform RETURN                    
+ A8E8                                do syntax error then warm start   
+ A8EB                                perform RETURN (continued)        
+ A8F8                                perform DATA                      
+ A8FB                                add Y to the BASIC execute        
+                                     pointer                           
+ A906                                scan for next BASIC statement     
+                                     ([:] or [EOL])                    
+ A909                                scan for next BASIC line          
+ A928                                perform IF                        
+ A93B                                perform REM                       
+ A94B                                perform ON                        
+ A96B                                get fixed-point number into       
+                                     temporary integer                 
+ A9A5                                perform LET                       
+ AA1D                                check and evaluate numeric digit  
+ AA2C                                assign value to numeric variable, 
+                                     but not TI$                       
+ AA80                                perform PRINT#                    
+ AA86                                perform CMD                       
+ AA9A                                print string and scan memory      
+ AAA0                                perform PRINT                     
+ AACA                                set XY to $0200 - 1 and print     
+                                     [CR]                              
+ AAD7                                print CR/LF                       
+ AAE8                                skip to the next TAB position     
+ AB1E                                print null terminated string      
+ AB21                                print string from utility pointer 
+ AB3B                                print [SPACE] or [CURSOR RIGHT]   
+ AB45                                print "?"                         
+ AB47                                print character                   
+ AB4D                                bad input routine                 
+ AB7B                                perform GET                       
+ ABA5                                perform INPUT#                    
+ ABB5                                close input and output channels   
+ ABBF                                perform INPUT                     
+ ABF9                                print "? " and get BASIC input    
+ AC06                                perform READ                      
+ AC0F                                perform GET                       
+ ACFC                                input error messages              
+ AD1E                                perform NEXT                      
+ AD8A                                evaluate expression and check     
+                                     type mismatch                     
+ AD9E                                evaluate expression               
+ AE20                                get vector, execute function then 
+                                     continue evaluation               
+ AE30                                do syntax error then warm start   
+ AE33                                get vector, execute function then 
+                                     continue evaluation (continued)   
+ AE38                                push sign, round FAC1 and put on  
+                                     stack                             
+ AE43                                round FAC1 and put on stack       
+ AE58                                do functions                      
+ AE83                                get value from line               
+ AE86                                get arithmetic element            
+ AF14                                check address range               
+ AF28                                variable name set-up              
+ AFA7                                get value from line continued     
+ AFE6                                perform OR                        
+ AFE9                                perform AND                       
+ B016                                perform comparisons               
+ B07E                                perform DIM                       
+ B08B                                search for variable               
+ B194                                set-up array pointer to first     
+                                     element in array                  
+ B1A5                                -32768 as floating value          
+ B1AA                                convert float to fixed            
+ B1B2                                evaluate integer expression       
+ B1D1                                find or make array                
+ B37D                                perform FRE()                     
+ B391                                convert fixed integer AY to float 
+                                     FAC1                              
+ B39E                                perform POS()                     
+ B3B3                                perform DEF                       
+ B3E1                                check FNx syntax                  
+ B3F4                                Evaluate FNx                      
+ B449                                restore BASIC execute pointer and 
+                                     function variable from stack      
+ B465                                perform STR$()                    
+ B475                                do string vector                  
+ B47D                                make string space A bytes long    
+ B487                                scan, set up string               
+ B4F4                                make space in string memory for   
+                                     string A long                     
+ B526                                garbage collection routine        
+ B63D                                concatenate                       
+ B67A                                copy string from descriptor to    
+                                     utility pointer                   
+ B6A3                                evaluate string                   
+ B6DB                                clean descriptor stack            
+ B6EC                                perform CHR$()                    
+ B700                                perform LEFT$()                   
+ B72C                                perform RIGHT$()                  
+ B737                                perform MID$()                    
+ B761                                pull string data and byte         
+                                     parameter from stack              
+ B77C                                perform LEN()                     
+ B782                                evaluate string, get length in Y  
+ B78B                                perform ASC()                     
+ B798                                do illegal quantity error then    
+                                     warm start                        
+ B79B                                scan and get byte parameter       
+ B79E                                get byte parameter                
+ B7A1                                evaluate byte expression, result  
+                                     in X                              
+ B7AD                                perform VAL()                     
+ B7E2                                restore BASIC execute pointer     
+                                     from temp                         
+ B7EB                                get parameters for POKE/WAIT      
+ B7F7                                convert FAC_1 to integer in       
+                                     temporary integer                 
+ B80D                                perform PEEK()                    
+ B824                                perform POKE                      
+ B82D                                perform WAIT                      
+ B849                                add 0.5 to FAC1 (round FAC1)      
+ B850                                perform subtraction, FAC1 from    
+                                     (AY)                              
+ B853                                perform subtraction, FAC1 from    
+                                     FAC2                              
+ B862                                shift FACX A times right          
+ B86A                                add FAC2 to FAC1                  
+ B8D2                                do ABS and normalise FAC1         
+ B8D7                                normalise FAC1                    
+ B8F7                                clear FAC1 exponent and sign      
+ B8FB                                save FAC1 sign                    
+ B8FE                                add FAC2 mantissa to FAC1         
+                                     mantissa                          
+ B947                                negate FAC1                       
+ B97E                                do overflow error then warm start 
+ B983                                shift FCAtemp << A+8 times        
+ B9BC                                constants and series for LOG(n)   
+ B9EA                                perform LOG()                     
+ BA28                                do convert AY, FCA1*(AY)          
+ BA8C                                unpack memory (AY) into FAC2      
+ BAB7                                test and adjust accumulators      
+ BAD4                                handle overflow and underflow     
+ BAE2                                multiply FAC1 by 10               
+ BAF9                                10 as a floating value            
+ BAFE                                divide FAC1 by 10                 
+ BB07                                divide by (AY) (X=sign)           
+ BB0F                                convert AY and do (AY)/FAC1       
+ BBA2                                unpack memory (AY) into FAC1      
+ BBC7                                pack FAC1 into $5C                
+ BBCA                                pack FAC1 into $57                
+ BBD0                                pack FAC1 into variable pointer   
+ BBD4                                pack FAC1 into (XY)               
+ BBFC                                copy FAC2 to FAC1                 
+ BC0C                                round and copy FAC1 to FAC2       
+ BC1B                                round FAC1                        
+ BC2B                                get FAC1 sign                     
+ BC39                                perform SGN()                     
+ BC3C                                save A as integer byte            
+ BC58                                perform ABS()                     
+ BC5B                                compare FAC1 with (AY)            
+ BC9B                                convert FAC1 floating to fixed    
+ BCBB                                shift FAC1 A times right          
+ BCCC                                perform INT()                     
+ BCE9                                clear FAC1                        
+ BCF3                                get FAC1 from string              
+ BD67                                do - FAC1                         
+ BD6A                                do unsigned FAC1*10+number        
+ BD7E                                evaluate new ASCII digit          
+ BD91                                evaluate next character of        
+                                     exponential part of number        
+ BDB3                                limits for scientific mode        
+ BDC2                                do " IN " line number message     
+ BDCD                                print XA as unsigned integer      
+ BDDD                                convert FAC1 to ASCII string      
+                                     result in (AY)                    
+ BF11                                constants                         
+ BF3A                                jiffy counts                      
+ BF52                                not referenced                    
+ BF53                                spare bytes, not referenced       
+ BF71                                perform SQR()                     
+ BF7B                                perform power function            
+ BFBF                                exp(n) constant and series        
+ BFED                                perform EXP()                     
+ E000                                start of the kernal ROM           
+ E043                                ^2 then series evaluation         
+ E059                                do series evaluation              
+ E08D                                RND values                        
+ E097                                perform RND()                     
+ E0F6                                pack FAC1 into (XY)               
+ E0F9                                handle BASIC I/O error            
+ E10C                                output character to channel with  
+                                     error check                       
+ E112                                input character from channel with 
+                                     error check                       
+ E118                                open channel for output with      
+                                     error check                       
+ E11E                                open channel for input with error 
+                                     check                             
+ E124                                get character from input device   
+                                     with error check                  
+ E12A                                perform SYS                       
+ E156                                perform SAVE                      
+ E165                                perform VERIFY                    
+ E168                                perform LOAD                      
+ E195                                do READY return to BASIC          
+ E1BE                                perform OPEN                      
+ E1C7                                perform CLOSE                     
+ E1D4                                get parameters for LOAD/SAVE      
+ E200                                scan and get byte, else do syntax 
+                                     error then warm start             
+ E206                                exit function if [EOT] or ":"     
+ E20E                                scan for ",valid byte", else do   
+                                     syntax error then warm start      
+ E211                                scan for valid byte, not [EOL] or 
+                                     ":", else do syntax error then    
+                                     warm start                        
+ E219                                get parameters for OPEN/CLOSE     
+ E257                                set filename                      
+ E264                                perform COS()                     
+ E26B                                perform SIN()                     
+ E2B4                                perform TAN()                     
+ E2DC                                save comparison flag and do       
+                                     series evaluation                 
+ E2E0                                constants and series for          
+                                     SIN/COS(n)                        
+ E30E                                perform ATN()                     
+ E33E                                series for ATN(n)                 
+ E37B                                BASIC warm start entry point      
+ E394                                BASIC cold start entry point      
+ E3A2                                character get subroutine for zero 
+                                     page                              
+ E3BA                                spare bytes, not referenced       
+ E3BF                                initialise BASIC RAM locations    
+ E422                                print the start up message and    
+                                     initialise the memory pointers    
+ E447                                BASIC vectors                     
+ E453                                initialise the BASIC vectors      
+ E45F                                unused                            
+ E460                                BASIC startup messages            
+ E4AC                                unused                            
+ E4AD                                open channel for output           
+ E4B7                                unused bytes                      
+ E4D3                                flag the RS232 start bit and set  
+                                     the parity                        
+ E4DA                                save the current colour to the    
+                                     colour RAM                        
+ E4E0                                wait ~8.5 seconds for any key     
+                                     from the STOP key column          
+ E4EC                                baud rate tables for PAL C64      
+ E500                                return the base address of the    
+                                     I/O devices                       
+ E505                                return the x,y organization of    
+                                     the screen                        
+ E50A                                read/set the x,y cursor position  
+ E518                                initialise the screen and         
+                                     keyboard                          
+ E544                                clear the screen                  
+ E566                                home the cursor                   
+ E56C                                set screen pointers for cursor    
+                                     row, column                       
+ E591                                find and set the pointers for the 
+                                     start of logical line             
+ E599                                orphan bytes ??                   
+ E5A0                                initialise the vic chip           
+ E5B4                                input from the keyboard buffer    
+ E5CA                                write character and wait for key  
+ E5CD                                wait for a key from the keyboard  
+ E632                                input from screen or keyboard     
+ E684                                if open quote toggle cursor quote 
+                                     flag                              
+ E691                                insert uppercase/graphic          
+                                     character                         
+ E6B6                                advance the cursor                
+ E701                                back onto the previous line if    
+                                     possible                          
+ E716                                output a character to the screen  
+ E87C                                do newline                        
+ E891                                output [CR]                       
+ E8A1                                test for line decrement           
+ E8B3                                test for line increment           
+ E8CB                                set the colour code               
+ E8DA                                ASCII colour code table           
+ E8EA                                scroll the screen                 
+ E965                                open up a space on the screen     
+ E9C8                                shift screen line up/down         
+ E9E0                                calculate pointers to screen      
+                                     lines colour RAM                  
+ E9F0                                fetch a screen address            
+ E9FF                                clear screen line X               
+ EA12                                orphan byte                       
+ EA13                                print character A and colour X    
+ EA1C                                save the character and colour to  
+                                     the screen @ the cursor           
+ EA24                                calculate the pointer to colour   
+                                     RAM                               
+ EA31                                IRQ vector                        
+ EA87                                scan the keyboard                 
+ EB48                                evaluate the SHIFT/CTRL/C= keys   
+ EB79                                table addresses                   
+ EB81                                standard keyboard table           
+ EBC2                                shifted keyboard table            
+ EC03                                CBM key keyboard table            
+ EC44                                check for special character codes 
+ EC78                                control keyboard table            
+ ECB9                                vic ii chip initialisation values 
+ ECE7                                keyboard buffer for auto load/run 
+ ECF0                                low bytes of screen line          
+                                     addresses                         
+ ED09                                command serial bus device to TALK 
+ ED0C                                command devices on the serial bus 
+                                     to LISTEN                         
+ ED11                                send a control character          
+ ED21                                defer a command                   
+ ED40                                Tx byte on serial bus             
+ EDB9                                send secondary address after      
+                                     LISTEN                            
+ EDBE                                set serial ATN high               
+ EDC7                                send secondary address after TALK 
+ EDCC                                wait for the serial bus end after 
+                                     send                              
+ EDDD                                output a byte to the serial bus   
+ EDEF                                command serial bus to UNTALK      
+ EDFE                                command serial bus to UNLISTEN    
+ EE13                                input a byte from the serial bus  
+ EE85                                set the serial clock out high     
+ EE8E                                set the serial clock out low      
+ EE97                                set the serial data out high      
+ EEA0                                set the serial data out low       
+ EEA9                                get the serial data status in Cb  
+ EEB3                                1ms delay                         
+ EEBB                                RS232 Tx NMI routine              
+ EED7                                do RS232 parity bit               
+ EF06                                setup next RS232 Tx byte          
+ EF2E                                set DSR signal not present        
+ EF31                                set CTS signal not present        
+ EF39                                disable timer A interrupt         
+ EF3B                                set VIA 2 ICR from A              
+ EF4A                                compute bit count                 
+ EF59                                RS232 Rx NMI                      
+ EF7E                                setup to receive an RS232 bit     
+ EF90                                no RS232 start bit received       
+ EF97                                received a whole byte, add it to  
+                                     the buffer                        
+ EFDB                                Routine at EFDB                   
+ EFE1                                open RS232 channel for output     
+ F014                                send byte to the RS232 buffer     
+ F028                                setup for RS232 transmit          
+ F04D                                input from RS232 buffer           
+ F086                                get byte from RS232 buffer        
+ F0A4                                check RS232 bus idle              
+ F0BD                                kernel I/O messages               
+ F12B                                display control I/O message if in 
+                                     direct mode                       
+ F13E                                get character from the input      
+                                     device                            
+ F157                                input a character from channel    
+ F199                                get byte from tape                
+ F1AD                                input device was serial bus       
+ F1B8                                input device was RS232 device     
+ F1CA                                output character to channel       
+ F1DD                                output the character to the       
+                                     cassette or RS232 device          
+ F20E                                open channel for input            
+ F250                                open channel for output           
+ F291                                close a specified logical file    
+ F2EE                                serial bus device close           
+ F2F2                                close file index X                
+ F30F                                find a file                       
+ F314                                find file A                       
+ F31F                                set file details from table,X     
+ F32F                                close all channels and files      
+ F333                                close input and output channels   
+ F34A                                open a logical file               
+ F3D5                                send secondary address and        
+                                     filename                          
+ F409                                open RS232 device                 
+ F47D                                set the top of memory to F0xx     
+ F483                                initialise RS232 output           
+ F49E                                load RAM from a device            
+ F4A5                                load                              
+ F533                                ??                                
+ F5AF                                print "Searching..."              
+ F5C1                                print file name                   
+ F5D2                                display "LOADING" or "VERIFYING"  
+ F5DD                                save RAM to device                
+ F5ED                                save                              
+ F68F                                print saving <file name>          
+ F69B                                increment the real time clock     
+ F6DD                                read the real time clock          
+ F6E4                                set the real time clock           
+ F6ED                                scan the stop key                 
+ F6FB                                file error messages               
+ F72C                                find the tape header, exit with   
+                                     header in buffer                  
+ F76A                                write the tape header             
+ F7D0                                get the tape buffer start pointer 
+ F7D7                                set the tape buffer start and end 
+                                     pointers                          
+ F7EA                                find specific tape header         
+ F80D                                bump tape pointer                 
+ F817                                wait for PLAY                     
+ F82E                                return cassette sense in Zb       
+ F838                                wait for PLAY/RECORD              
+ F841                                initiate a tape read              
+ F864                                initiate a tape write             
+ F875                                tape read/write                   
+ F8D0                                scan stop key and flag abort if   
+                                     pressed                           
+ F8DC                                clear saved IRQ address           
+ F8E2                                set timing                        
+ F92C                                read tape bits, IRQ routine       
+ FA60                                store character                   
+ FB8E                                copy I/O start address to buffer  
+                                     address                           
+ FB97                                new tape byte setup               
+ FBA6                                send lsb from tape write byte to  
+                                     tape                              
+ FBC8                                flag block done and exit          
+                                     interrupt                         
+ FBCD                                tape write IRQ routine            
+ FC6A                                write tape leader IRQ routine     
+ FC93                                restore everything for STOP       
+ FCB8                                reset vector                      
+ FCBD                                set tape vector                   
+ FCCA                                stop the cassette motor           
+ FCD1                                check read/write pointer          
+ FCDB                                increment read/write pointer      
+ FCE2                                RESET, hardware reset starts here 
+ FD02                                scan for autostart ROM at $8000   
+ FD10                                autostart ROM signature           
+ FD15                                restore default I/O vectors       
+ FD1A                                set/read vectored I/O from (XY)   
+ FD30                                kernal vectors                    
+ FD50                                test RAM and find RAM end         
+ FD9B                                tape IRQ vectors                  
+ FDA3                                initialise SID, CIA and IRQ       
+ FDF9                                set filename                      
+ FE00                                set logical, first and second     
+                                     addresses                         
+ FE07                                read I/O status word              
+ FE18                                control kernal messages           
+ FE1C                                OR into the serial status byte    
+ FE21                                set timeout on serial bus         
+ FE25                                read/set the top of memory        
+ FE27                                read the top of memory            
+ FE2D                                set the top of memory             
+ FE34                                read/set the bottom of memory     
+ FE43                                NMI vector                        
+ FE47                                NMI handler                       
+ FE66                                user function default vector      
+ FE72                                RS232 NMI routine                 
+ FEC2                                baud rate tables for NTSC C64     
+ FED6                                ??                                
+ FF07                                ??                                
+ FF2E                                ??                                
+ FF41                                unused bytes                      
+ FF43                                save the status and do the IRQ    
+                                     routine                           
+ FF48                                IRQ vector                        
+ FF5B                                initialise VIC and screen editor  
+ FF6E                                ??                                
+ FF80                                unused                            
+ FF81                                initialise VIC and screen editor  
+ FF84                                initialise SID, CIA and IRQ,      
+                                     unused                            
+ FF87                                RAM test and find RAM end         
+ FF8A                                restore default I/O vectors       
+ FF8D                                read/set vectored I/O             
+ FF90                                control kernal messages           
+ FF93                                send secondary address after      
+                                     LISTEN                            
+ FF96                                send secondary address after TALK 
+ FF99                                read/set the top of memory        
+ FF9C                                read/set the bottom of memory     
+ FF9F                                scan the keyboard                 
+ FFA2                                set timeout on serial bus         
+ FFA5                                input byte from serial bus        
+ FFA8                                output a byte to serial bus       
+ FFAB                                command serial bus to UNTALK      
+ FFAE                                command serial bus to UNLISTEN    
+ FFB1                                command devices on the serial bus 
+                                     to LISTEN                         
+ FFB4                                command serial bus device to TALK 
+ FFB7                                read I/O status word              
+ FFBA                                set logical, first and second     
+                                     addresses                         
+ FFBD                                set the filename                  
+ FFC0                                open a logical file               
+ FFC3                                close a specified logical file    
+ FFC6                                open channel for input            
+ FFC9                                open channel for output           
+ FFCC                                close input and output channels   
+ FFCF                                input character from channel      
+ FFD2                                output character to channel       
+ FFD5                                load RAM from a device            
+ FFD8                                save RAM to a device              
+ FFDB                                set the real time clock           
+ FFDE                                read the real time clock          
+ FFE1                                scan the stop key                 
+ FFE4                                get character from input device   
+ FFE7                                close all channels and files      
+ FFEA                                increment real time clock         
+ FFED                                return X,Y organization of screen 
+ FFF0                                read/set X,Y cursor position      
+ FFF3                                return the base address of the    
+                                     I/O devices                       
+ FFF6                                RRBY                              
+ FFFA                                hardware vectors                  
+"""
+
+ROM_MAP = dict()
+last_addr = None
+for line in ROM_MAP_TXT.splitlines():
+    split = line.split(maxsplit=1)
+    if len(split) == 0:
+        continue
+    elif len(split) > 1:
+        split[1] = split[1].strip()
+    addr = None
+    try:
+        addr = int(split[0], 16)
+    except ValueError:
+        pass
+    if addr is None:
+        if last_addr is None:
+            print('last_addr is None', ROM_MAP)
+        ROM_MAP[last_addr] = ' '.join([ROM_MAP[last_addr]] + split)
+    elif len(split) > 1:
+        last_addr = addr
+        ROM_MAP[addr] = split[1]
+
+if True:
+    pages_data = collections.OrderedDict()
+    plugin_dir = pathlib.Path(__file__).parent
+    file_paths = glob.glob("Page*.json", root_dir=plugin_dir)
+    log_warn(f"file_paths={list(file_paths)} from {pathlib.Path(__file__).parent} ({pathlib.Path(__file__)})")
+    for file_path in file_paths:
+        with open(plugin_dir / file_path, 'r', encoding='utf-8') as file:
+            data = json.load(file)
+            pages_data[pathlib.Path(file_path).stem] = data
+            log_info(f"Loaded page data from {file_path}")
 
 class PETSCII():
     # Unicode tables as defined by
@@ -572,7 +1174,7 @@ class DD001View(BinaryView):
     name = "DD001 ROM"
     long_name = "C64 DD001 ROM"
     cart_name = 0
-    
+
     # FIXME: Just here for debugging, Python 3 only
     @classmethod
     def register(self):
@@ -655,9 +1257,86 @@ class DD001View(BinaryView):
             # self.add_auto_segment(0x1c00, 0x10, 0, 0, rwx)
             # self.add_auto_section("VIA #2; drive control", 0x1c00, 0x10)
 
+            self.add_auto_segment(0x0000, 0x1000, 0, 0, rw_)
+            for name, data in pages_data.items():
+                addrs = list(map(int, data.keys()))
+                log_info(f"{name}.keys: {list(data.keys())}\naddrs: {list(addrs)}")
+                start = min(addrs)
+                end = max(addrs)
+                real_end = end + data[str(end)]["length"]
+                self.add_auto_section(name, start, real_end - start, SectionSemantics.ReadWriteDataSectionSemantics)
             self.add_auto_segment(0x8000, 0x2000, 0, 0x2000, r_xc)
             self.add_user_section("ROM", 0x8000, 0x2000, SectionSemantics.ReadOnlyCodeSectionSemantics)
+            self.add_auto_segment(0xa000, 0x2000, 0, 0, r_xc)
+            self.add_auto_section("BASIC", 0xa000, 0x2000, SectionSemantics.ReadOnlyCodeSectionSemantics)
+            self.add_auto_segment(0xe000, 0x2000, 0, 0, r_xc)
+            self.add_auto_section("KERNAL", 0xe000, 0x2000, SectionSemantics.ReadOnlyCodeSectionSemantics)
             # self.add_auto_section("ROM", 0xe000, 0x2000)
+
+            real_pointer_type = Type.pointer(self.arch, self.parse_type_string("void")[0])
+            fake_pointer_type = self.parse_type_string("uint16_t")[0]
+            byte_type = self.parse_type_string("unsigned char")[0]
+            for addr, desc in ROM_MAP.items():
+                if self.read_int(addr, 2) != 0:
+                    pointer_type = real_pointer_type
+                else:
+                    pointer_type = fake_pointer_type
+                self.define_data_var(addr, pointer_type, desc)
+                # self.define_auto_symbol_and_var_or_function(Symbol(SymbolType.ExternalSymbol, addr, desc), type=rom_type)
+
+            for name, data in pages_data.items():
+                type = None
+                for addr, info in data.items():
+                    addr = int(addr)
+                    if self.read_int(addr, 2) != 0:
+                        pointer_type = real_pointer_type
+                    else:
+                        pointer_type = fake_pointer_type
+                    keys = list(info.keys())
+                    if (type_str := info["Type"]) == "Pointer":
+                        if type == pointer_type:
+                            type = None
+                            continue
+                        else:
+                            type = pointer_type
+                    else:
+                        type = byte_type
+                    log_warn(f"{addr:#x}: {info}")
+                    content = info[keys[-2]].strip()
+
+                    hex_addr = info['Hex Address']
+                    if content:
+                        if content == "Unused":
+                            var_name = f"Unused_{hex_addr}"
+                        else:
+                        # var_name = f"{type_str}_{content.splitlines()[0].replace(' ', '_')}"
+                            if 'ointing to' in content.splitlines()[0]:
+                                var_name = re.sub(r"(?:[^;]*;\s*(?:a\s*)?)(.*)", r"\1", content.splitlines()[0].replace("'", ""))
+                            else:
+                                var_name = re.sub(r"([^;]*)(?:;.*)", r"\1", content.splitlines()[0].replace("'", ""))
+                            var_name = re.sub(r'\W+', '_', var_name)
+                            if type_str.strip():
+                                var_name = f"{type_str}_{var_name}"
+                    else:
+                        var_name = f"{type_str}_{hex_addr}"
+                    if var_name:
+                        var_name = var_name.strip("_").strip()
+                    # if ";" in var_name:
+                    #     var_name = var_name[:var_name.index(";")]
+                    log_warn(f'self.define_data_var({addr=:#x}, {pointer_type=}, info[{keys[-2]!r}]={content!r}')
+                    if (length := info['length']) > 2:
+                        type = Type.array(byte_type, length)
+                    self.define_data_var(addr, type, var_name)
+                    comment = ''
+                    for l in content.splitlines():
+                        if len(l) > 65:
+                            l = l.replace('; ', ';\n')
+                        if comment:
+                            comment = comment + '\n' + l
+                        else:
+                            comment = l
+                    type_str = f"[{type_str}] " if type_str else ""
+                    self.set_comment_at(addr, f"{hex_addr}: {type_str}{comment}")
 
             # If $8004 = PETSCII("CBM80") then use $8000
             # as coldboot vector and $8002 as warmboot

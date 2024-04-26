@@ -1,0 +1,142 @@
+<-- https://www.c64-wiki.com/index.php?title=Page_3&action=edit&section=1 -->
+== Addresses ==
+
+=== RAM ===
+{| {{Wikitable}}
+!Hex Address
+!Dec Address
+!Type
+!Contents
+|-
+| $0300 || 768 || Pointer || [[Low-Byte|Low Byte]] address of the Print BASIC Error Message Routine
+|-
+| $0301 || 769 || Pointer || [[High-byte|High byte]] address of the Print BASIC Error Message Routine
+|-
+| $0302 || 770 || Pointer || [[Low-Byte|Low Byte]] address of the Main BASIC Program Loop
+|-
+| $0303 || 771 || Pointer || [[High-byte|High byte]] address of the Main BASIC Program Loop
+|-
+| $0304 || 772 || Pointer || [[Low-Byte|Low Byte]] address of the routine That Crunches the ASCII Text of Keywords into Tokens
+|-
+| $0305 || 773 || Pointer || [[High-byte|High byte]] address of the routine That Crunches the ASCII Text of Keywords into Tokens
+|-
+| $0306 || 774 || Pointer || [[Low-Byte|Low Byte]] address of the routine That Lists BASIC Program Token as ASCII Text
+|-
+| $0307 || 775 || Pointer || [[High-byte|High byte]] address of the routine That Lists BASIC Program Token as ASCII Text
+|-
+| $0308 || 776 || Pointer || [[Low-Byte|Low Byte]] address of the routine That Executes the Next BASIC Program Token
+|-
+| $0309 || 777 || Pointer || [[High-byte|High byte]] address of the routine That Executes the Next BASIC Program Token
+|-
+| $030A || 778 || Pointer || [[Low-Byte|Low Byte]] address of the routine That Evaluates a Single-Term Arithmetic Expression
+|-
+| $030B || 779 || Pointer || [[High-byte|High byte]] address of the routine That Evaluates a Single-Term Arithmetic Expression
+|-
+| $030C || 780 || Value || Storage Area for .A Register (Accumulator)
+|-
+| $030D || 781 || Value || Storage Area for .X Index Register
+|-
+| $030E || 782 || Value || Storage Area for .Y Index Register
+|-
+| $030F || 783 || Value || Storage Area for .P (Status) Register
+|-
+| rowspan="8" colspan ="3" | 
+| Bit 0 - Carry
+|-
+| Bit 1 - Zero
+|-
+| Bit 2 - Interrupt Disable
+|-
+| Bit 3 - Decimal
+|-
+| Bit 4 - Break
+|-
+| Bit 5 - Unused
+|-
+| Bit 6 - Overflow
+|-
+| Bit 7 - Negative
+|-
+| $0310 || 784  || Value || Machine code, 76 ($4C), for assembler command JMP
+|-
+| $0311 || 785 || Pointer || [[Low-Byte|Low Byte]] address of [[USR]] routine
+|-
+| $0312 || 786 || Pointer || [[High-byte|High byte]] address of [[USR]] Routine
+|-
+| $0313 || 787 ||  || Unused
+|-
+| $0314 || 788 || Pointer || [[Low-Byte|Low Byte]] address of the interrupt service routine
+|-
+| $0315 || 789 || Pointer || [[High-byte|High byte]] address of the interrupt service routine
+|-
+| $0316 || 790 || Pointer || [[Low-Byte|Low Byte]] address of the BRK instruction interrupt
+|-
+| $0317 || 791 || Pointer || [[High-byte|High byte]] address of the BRK instruction interrupt
+|-
+| $0318 || 792 || Pointer || [[Low-Byte|Low Byte]] address of the routine that follows a non-maskable interrupt
+|-
+| $0319 || 793 || Pointer || [[High-byte|High byte]] address of the routine that follows a non-maskable interrupt
+|-
+| $031A || 794 || Pointer || [[Low-Byte|Low Byte]] address of the [[KERNAL]] [[OPEN]] routine
+|-
+| $031B || 795 || Pointer || [[High-byte|High byte]] address of the [[KERNAL]] [[OPEN]] routine
+|-
+| $031C || 796 || Pointer || [[Low-Byte|Low Byte]] address of the [[KERNAL]] [[CLOSE]] routine
+|-
+| $031D || 797 || Pointer || [[High-byte|High byte]] address of the [[KERNAL]] [[CLOSE]] routine
+|-
+| $031E || 798 || Pointer || [[Low-Byte|Low Byte]] address of the [[KERNAL]] [[CHKIN]] routine
+|-
+| $031F || 799 || Pointer || [[High-byte|High byte]] address of the [[KERNAL]] [[CHKIN]] routine
+|-
+| $0320 || 800 || Pointer || [[Low-Byte|Low Byte]] address of the [[KERNAL]] [[CKOUT]] routine
+|-
+| $0321 || 801 || Pointer || [[High-byte|High byte]] address of the [[KERNAL]] [[CKOUT]] routine
+|-
+| $0322 || 802 || Pointer || [[Low-Byte|Low Byte]] address of the [[KERNAL]] [[CLRCHN]] routine
+|-
+| $0323 || 803 || Pointer || [[High-byte|High byte]] address of the [[KERNAL]] [[CLRCHN]] routine
+|-
+| $0324 || 804 || Pointer || [[Low-Byte|Low Byte]] address of the [[KERNAL]] [[CHRIN]] routine
+|-
+| $0325 || 805 || Pointer || [[High-byte|High byte]] address of the [[KERNAL]] [[CHRIN]] routine
+|-
+| $0326 || 806 || Pointer || [[Low-Byte|Low Byte]] address of the [[KERNAL]] [[CHROUT]] routine
+|-
+| $0327 || 807 || Pointer || [[High-byte|High byte]] address of the [[KERNAL]] [[CHROUT]] routine
+|-
+| $0328 || 808 || Pointer || [[Low-Byte|Low Byte]] address of the [[KERNAL]] [[STOP]] routine
+|-
+| $0329 || 809 || Pointer || [[High-byte|High byte]] address of the [[KERNAL]] [[STOP]] routine
+|-
+| $032A || 810 || Pointer || [[Low-Byte|Low Byte]] address of the [[KERNAL]] [[GETIN]] routine
+|-
+| $032B || 811 || Pointer || [[High-byte|High byte]] address of the [[KERNAL]] [[GETIN]] routine
+|-
+| $032C || 812 || Pointer || [[Low-Byte|Low Byte]] address of the [[KERNAL]] [[CLALL]] routine
+|-
+| $032D || 813 || Pointer || [[High-byte|High byte]] address of the [[KERNAL]] [[CLALL]] routine
+|-
+| $032E || 814 || Pointer || [[Low-Byte|Low Byte]] address of the user-defined routine
+|-
+| $032F || 815 || Pointer || [[High-byte|High byte]] address of the user-defined routine
+|-
+| $0330 || 816 || Pointer || [[Low-Byte|Low Byte]] address of the [[LOAD]] routine
+|-
+| $0331 || 817 || Pointer || [[High-byte|High byte]] address of the [[LOAD]] routine
+|-
+| $0332 || 818 || Pointer || [[Low-Byte|Low Byte]] address of the [[SAVE]] routine
+|-
+| $0333 || 819 || Pointer || [[High-byte|High byte]] address of the [[SAVE]] routine
+|-
+| $0334-$033B || 820-827 || || Unused
+|-
+| $033C-$03FB || 828-1019 ||  || Datasette I/O buffer
+|-
+| $03FC-$03FF || 1020-1023 ||  || Unused
+|-
+|}
+
+[[category:Basics]]
+[[category:Memory Map]]
+[[DE:Zeropage#Belegung_der_erweiterten_Zeropage_.28256.2F.24100_-_1023.2F.243FF.29_des_C64]]
